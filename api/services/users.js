@@ -23,11 +23,11 @@ async function searchUser(name, page = 1){
     // `SELECT * FROM users WHERE name = '%${name}%' AND password = '%${password}%' LIMIT ${offset},${config.listPerPage}`
     `SELECT * FROM users WHERE name = '%${name}%' LIMIT ${offset},${config.listPerPage}`
   )
-  const data = helper.emptyOrRows(rows);
+  // const data = helper.emptyOrRows(rows);
   const meta = {page};
 
   return {
-      data,
+      rows,
       meta
   }
 }
