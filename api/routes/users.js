@@ -14,7 +14,7 @@ router.get('/', async function(req, res, next) {
 });
 
 /* SEARCH users */
-router.get('/:name/:password', async function(req, res, next) {
+router.get('/:name&:password', async function(req, res, next) {
   try {
     res.json(await users.searchUser(req.params.name, req.params.password, req.query.page));
     console.log(req);
