@@ -20,7 +20,7 @@ async function getMultiple(page = 1){
 async function searchUser(id, page = 1){
   const rows = await db.query(
     // `SELECT * FROM users WHERE name = '%${name}%' AND password = '%${password}%' LIMIT ${offset},${config.listPerPage}`
-    `SELECT * FROM users WHERE id = '%${id}%'`
+    `SELECT * FROM users WHERE id = ${id}`
   )
   const data = helper.emptyOrRows(rows);
   const meta = {page};
