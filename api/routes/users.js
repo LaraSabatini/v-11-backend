@@ -14,9 +14,9 @@ router.get('/', async function(req, res, next) {
 });
 
 /* SEARCH users */
-router.get('/name=:name', async function(req, res, next) {
+router.get('/name=:name&password=:password', async function(req, res, next) {
   try {
-    res.json(await users.searchUser(req.params.name, req.query.page));
+    res.json(await users.searchUser(req.params.name, req.params.password, req.query.page));
     console.log(req);
   } catch (err) {
     console.error(`The user data is wrong `, err.message);
