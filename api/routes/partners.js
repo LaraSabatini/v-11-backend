@@ -27,7 +27,7 @@ router.get('/:value', async function(req, res, next) {
 /* POST partners */
 router.post('/', async function(req, res, next) {
   try {
-    res.json(await partners.create(req.body));
+    res.json(await partners.createPartner(req.body));
   } catch (err) {
     console.error(`Error while creating partners`, err.message);
     next(err);
