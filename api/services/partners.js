@@ -6,7 +6,7 @@ async function getMultiple(page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
     `SELECT id, name, last_name, identification_number, birth_date, email, membership_start_date, membership_time_paid, payment_expire_date, payment_is_active, created_by, trainer_id, free_pass 
-    FROM users LIMIT ${offset},${config.listPerPage}`
+    FROM partners LIMIT ${offset},${config.listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
   const meta = {page};
