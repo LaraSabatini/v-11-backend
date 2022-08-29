@@ -19,7 +19,6 @@ async function getMultiple(page = 1){
 
 async function searchUser(name, password, page = 1){
   const rows = await db.query(
-    // `SELECT * FROM users WHERE name = '%${name}%' AND password = '%${password}%' LIMIT ${offset},${config.listPerPage}`
     `SELECT * FROM users WHERE name = ${name} AND password = ${password}`
   )
   const data = helper.emptyOrRows(rows);
