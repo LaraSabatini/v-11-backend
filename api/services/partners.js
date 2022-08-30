@@ -5,8 +5,7 @@ const config = require('../../config');
 async function getMultiple(page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
-    `SELECT id, name, last_name, identification_number, birth_date, email, membership_start_date, membership_time_paid, payment_expire_date, payment_is_active, created_by, trainer_id, free_pass 
-    FROM partners LIMIT ${offset},${config.listPerPage}`
+    `SELECT * FROM partners LIMIT ${offset},${config.listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
   const meta = {page};
@@ -31,6 +30,34 @@ async function searchPartner(value, page = 1){
     }
 };
 
+async function filterStudents(value, page = 1){
+  const offset = helper.getOffset(page, config.listPerPage);
+  const rows = await db.query(
+    `SELECT * FROM partners WHERE trainer_id > '${value}' LIMIT ${offset},${config.listPerPage}`
+    )
+  const data = helper.emptyOrRows(rows);
+  const meta = {page};
+
+  return {
+      data,
+      meta
+  }
+};
+
+async function filterFreePass(value, page = 1){
+  const offset = helper.getOffset(page, config.listPerPage);
+  const rows = await db.query(
+    `SELECT * FROM partners WHERE free_pass = '${value}' LIMIT ${offset},${config.listPerPage}`
+  )
+  const data = helper.emptyOrRows(rows);
+  const meta = {page};
+
+  return {
+      data,
+      meta
+  }
+};
+
 async function create(partner){
   const result = await db.query(
     `INSERT INTO partners(name, last_name, identification_number, birth_date, email, membership_start_date, membership_time_paid, payment_expire_date, payment_is_active, created_by, trainer_id, free_pass)
@@ -49,5 +76,7 @@ async function create(partner){
 module.exports = {
   getMultiple,
   searchPartner,
+  filterStudents,
+  filterFreePass,
   create
 }

@@ -24,6 +24,28 @@ router.get('/:value', async function(req, res, next) {
     }
 });
 
+/* SEARCH students */
+router.get('/students/:value', async function(req, res, next) {
+  try {
+    res.json(await partners.filterStudents(req.params.value, req.query.page));
+    console.log(req);
+  } catch (err) {
+    console.error(`Error while getting the partners `, err.message);
+    next(err);
+  }
+});
+
+/* SEARCH free-pass */
+router.get('/free-pass/:value', async function(req, res, next) {
+  try {
+    res.json(await partners.filterFreePass(req.params.value, req.query.page));
+    console.log(req);
+  } catch (err) {
+    console.error(`Error while getting the partners `, err.message);
+    next(err);
+  }
+});
+
 /* POST partners */
 router.post('/', async function(req, res, next) {
   try {
