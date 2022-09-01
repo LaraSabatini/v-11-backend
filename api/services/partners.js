@@ -75,7 +75,7 @@ async function create(partner){
 
 async function update(id, partner){
   const result = await db.query(
-    `UPDATE partners SET id=${partner.id},name=${partner.name},last_name=${partner.last_name},identification_number=${partner.identification_number},birth_date=${partner.birth_date},email=${partner.email},membership_start_date=${partner.membership_start_date},membership_time_paid=${partner.membership_time_paid},payment_expire_date=${partner.payment_expire_date},payment_is_active=${partner.payment_is_active},created_by=${partner.created_by},trainer_id=${partner.trainer_id},free_pass=${partner.free_pass} WHERE id='${id}'`
+    `UPDATE partners SET id='${partner.id}',name='${partner.name}',last_name='${partner.last_name}',identification_number='${partner.identification_number}',birth_date='${partner.birth_date}',email='${partner.email}',membership_start_date='${partner.membership_start_date}',membership_time_paid='${partner.membership_time_paid}',payment_expire_date='${partner.payment_expire_date}',payment_is_active='${partner.payment_is_active}',created_by='${partner.created_by}',trainer_id='${partner.trainer_id}',free_pass='${partner.free_pass}' WHERE id='${id}'`
   );
 
   let message = 'Error in updating partner';
