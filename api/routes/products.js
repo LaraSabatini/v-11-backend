@@ -35,4 +35,14 @@ router.get('/category/:value', async function(req, res, next) {
   }
 });
 
+/* POST products */
+router.post('/', async function(req, res, next) {
+  try {
+    res.json(await products.create(req.body));
+  } catch (err) {
+    console.error(`Error while creating product`, err.message);
+    next(err);
+  }
+});
+
 module.exports = router;
