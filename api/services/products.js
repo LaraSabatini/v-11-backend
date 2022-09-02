@@ -33,7 +33,7 @@ async function searchProducts(value, page = 1){
 async function filterByCategory(value, page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
-      `SELECT * FROM products WHERE product_id = '${value}' LIMIT ${offset},${config.listPerPage}`
+      `SELECT * FROM products WHERE category_id = '${value}' LIMIT ${offset},${config.listPerPage}`
      )
     const data = helper.emptyOrRows(rows);
     const meta = {page};
