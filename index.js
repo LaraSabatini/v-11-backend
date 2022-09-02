@@ -7,6 +7,7 @@ const partnersRouter = require("./api/routes/partners");
 const trainersRouter = require("./api/routes/trainers");
 const productsRouter = require("./api/routes/products");
 const categoriesRouter = require("./api/routes/categories");
+const brandsRouter = require("./api/routes/brands");
 
 app.use(express.json());
 app.use(
@@ -63,6 +64,15 @@ app.use((err, req, res, next) => {
 });
 
 app.use("/categories", categoriesRouter);
+/* Error handler middleware */
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  console.error(err.message, err.stack);
+  res.status(statusCode).json({ message: err.message});
+  return;
+});
+
+app.use("/brands", brandsRouter);
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
