@@ -46,8 +46,8 @@ async function filterByCategory(value, page = 1){
 
 async function create(product){
   const result = await db.query(
-    `INSERT INTO products(name, brand_id, stock, price, margin, cost, sales_contact_name, sales_contact_information, image, category_id)
-    VALUES ('${product.name}','${product.brand_id}', '${product.stock}', '${product.price}', '${product.margin}', '${product.cost}', '${product.sales_contact_name}', '${product.sales_contact_information}', '${product.image}', '${product.category_id}')`
+    `INSERT INTO products(name, brand_id, stock, price, margin, cost, sales_contact_name, sales_contact_information, category_id)
+    VALUES ('${product.name}','${product.brand_id}', '${product.stock}', '${product.price}', '${product.margin}', '${product.cost}', '${product.sales_contact_name}', '${product.sales_contact_information}', '${product.category_id}')`
   );
 
   let message = 'Error in creating product';
