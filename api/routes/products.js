@@ -45,4 +45,14 @@ router.post('/', async function(req, res, next) {
   }
 });
 
+/* PUT product */
+router.put('/:id', async function(req, res, next) {
+  try {
+    res.json(await products.update(req.params.id, req.body));
+  } catch (err) {
+    console.error(`Error while updating product`, err.message);
+    next(err);
+  }
+});
+
 module.exports = router;

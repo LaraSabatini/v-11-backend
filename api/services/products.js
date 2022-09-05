@@ -59,9 +59,24 @@ async function create(product){
   return {message};
 }
 
+async function update(id, product){
+  const result = await db.query(
+    `UPDATE products SET id='${product.id}',name='${product.name}',brand_id='${product.brand_id}',stock='${product.stock}',price='${product.price}',margin='${product.margin}',cost='${product.cost}',sales_contact_name='${product.sales_contact_name}', sales_contact_information='${product.sales_contact_information}', sales_contact_informcategory_idation='${product.category_id}' WHERE id='${id}'`
+  );
+
+  let message = 'Error in updating product';
+
+  if (result.affectedRows) {
+    message = 'product updated successfully';
+  }
+
+  return {message};
+}
+
 module.exports = {
     getMultiple,
     searchProducts,
     filterByCategory,
-    create
+    create,
+    update
 }
