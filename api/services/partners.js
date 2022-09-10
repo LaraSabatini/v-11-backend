@@ -60,8 +60,8 @@ async function filterFreePass(value, page = 1){
 
 async function create(partner){
   const result = await db.query(
-    `INSERT INTO partners(name, last_name, identification_number, birth_date, email, membership_start_date, membership_time_paid, payment_expire_date, payment_is_active, created_by, trainer_id, free_pass)
-    VALUES ('${partner.name}','${partner.last_name}', '${partner.identification_number}', '${partner.birth_date}', '${partner.email}', '${partner.membership_start_date}', '${partner.membership_time_paid}', '${partner.payment_expire_date}', '${partner.payment_is_active}', '${partner.created_by}', '${partner.trainer_id}', '${partner.free_pass}')`
+    `INSERT INTO partners(name, last_name, identification_number, birth_date, email, membership_start_date, created_by, trainer_id, free_pass)
+    VALUES ('${partner.name}','${partner.last_name}', '${partner.identification_number}', '${partner.birth_date}', '${partner.email}', '${partner.membership_start_date}', '${partner.created_by}', '${partner.trainer_id}', '${partner.free_pass}')`
   );
 
   let message = 'Error in creating partner';
@@ -75,7 +75,7 @@ async function create(partner){
 
 async function update(id, partner){
   const result = await db.query(
-    `UPDATE partners SET id='${partner.id}',name='${partner.name}',last_name='${partner.last_name}',identification_number='${partner.identification_number}',birth_date='${partner.birth_date}',email='${partner.email}',membership_start_date='${partner.membership_start_date}',membership_time_paid='${partner.membership_time_paid}',payment_expire_date='${partner.payment_expire_date}',payment_is_active='${partner.payment_is_active}',created_by='${partner.created_by}',trainer_id='${partner.trainer_id}',free_pass='${partner.free_pass}' WHERE id='${id}'`
+    `UPDATE partners SET id='${partner.id}',name='${partner.name}',last_name='${partner.last_name}',identification_number='${partner.identification_number}',birth_date='${partner.birth_date}',email='${partner.email}',membership_start_date='${partner.membership_start_date}',created_by='${partner.created_by}',trainer_id='${partner.trainer_id}',free_pass='${partner.free_pass}' WHERE id='${id}'`
   );
 
   let message = 'Error in updating partner';
