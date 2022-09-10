@@ -68,9 +68,10 @@ async function create(partner){
 
   if (result.affectedRows) {
     message = 'partner created successfully';
+    partnerId = result.insertId
   }
 
-  return {message};
+  return {message, partnerId};
 }
 
 async function update(id, partner){
