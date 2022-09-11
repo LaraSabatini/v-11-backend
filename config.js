@@ -1,11 +1,11 @@
 const config = {
-    db: {
-      host: "mysql-tester-database.alwaysdata.net",
-      user: "271839_v11",
-      password: "V11ESCALADA!",
-      database: "tester-database_v11",
-    },
-    listPerPage: 25,
+  db: {
+    host: "vonceescalada.com",
+    user: "u611741292_lara_sabatini",
+    password: "v11Escalada!",
+    database: "u611741292_v_11",
+  },
+  listPerPage: 25,
 };
-  
+
 module.exports = config;
