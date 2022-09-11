@@ -45,8 +45,23 @@ async function create(partnerPayment){
   return {message};
 }
 
+async function update(id, partnerPayment){
+  const result = await db.query(
+    `UPDATE partner_payments SET id='${partnerPayment.id}',partner_id='${partnerPayment.partner_id}',partner_name='${partnerPayment.partner_name}',partner_last_name='${partnerPayment.partner_last_name}',combo='${partnerPayment.combo}',time_paid='${partnerPayment.time_paid}',time_paid_unit='${partnerPayment.time_paid_unit}',clases_paid='${partnerPayment.clases_paid}', trainer_id='${partnerPayment.trainer_id}', trainer_name='${partnerPayment.trainer_name}', payment_method_id='${partnerPayment.payment_method_id}', payment_method_name='${partnerPayment.payment_method_name}', price_paid='${partnerPayment.price_paid}', date='${partnerPayment.date}' WHERE id='${id}'`
+  );
+
+  let message = 'Error in updating payment';
+
+  if (result.affectedRows) {
+    message = 'payment updated successfully';
+  }
+
+  return {message};
+}
+
 module.exports = {
     getMultiple,
     searchPurchasesByPartner,
-    create
+    create,
+    update
 }
