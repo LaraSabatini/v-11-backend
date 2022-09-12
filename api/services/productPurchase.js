@@ -16,10 +16,10 @@ async function getMultiple(page = 1){
     }
 };
 
-async function getByMonth(value, page = 1){
+async function getByMonth(month, product, page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
-      `SELECT * FROM product_purchases WHERE month_id LIKE '%${value}%' LIMIT ${offset},${config.listPerPage}`
+      `SELECT * FROM product_purchases WHERE month_id = ${month} AND product_id = ${product}`
     )
     const data = helper.emptyOrRows(rows);
     const meta = {page};
