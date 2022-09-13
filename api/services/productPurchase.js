@@ -16,7 +16,7 @@ async function getMultiple(page = 1){
     }
 };
 
-async function getByMonth(month, product, page = 1){
+async function getByMonthAndProduct(month, product, page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
       `SELECT * FROM product_purchases WHERE month_id = ${month} AND product_id = ${product}`
@@ -29,6 +29,21 @@ async function getByMonth(month, product, page = 1){
         meta
     }
 };
+
+async function getByMonth(month, page = 1){
+  const offset = helper.getOffset(page, config.listPerPage);
+  const rows = await db.query(
+    `SELECT * FROM product_purchases WHERE month_id = ${month}`
+  )
+  const data = helper.emptyOrRows(rows);
+  const meta = {page};
+
+  return {
+      data,
+      meta
+  }
+};
+
 
 async function create(productPurchase){
   const result = await db.query(
@@ -61,7 +76,8 @@ async function update(id, productPurchase){
 
 module.exports = {
     getMultiple,
-    getByMonth,
+    getByMonthAndProduct,
     create,
-    update
+    update,
+    getByMonth
 }

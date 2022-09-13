@@ -13,15 +13,26 @@ router.get('/', async function(req, res, next) {
   }
 });
 
-/* SEARCH purchases by month */
+/* SEARCH purchases by month and product */
 router.get('/month=:month&product=:product', async function(req, res, next) {
     try {
-      res.json(await productPurchases.getByMonth(req.params.month, req.params.product, req.query.page));
+      res.json(await productPurchases.getByMonthAndProduct(req.params.month, req.params.product, req.query.page));
       console.log(req);
     } catch (err) {
       console.error(`Error while getting search `, err.message);
       next(err);
     }
+});
+
+/* SEARCH purchases by month */
+router.get('/month=:month', async function(req, res, next) {
+  try {
+    res.json(await productPurchases.getByMonth(req.params.month, req.query.page));
+    console.log(req);
+  } catch (err) {
+    console.error(`Error while getting search `, err.message);
+    next(err);
+  }
 });
 
 /* POST purchase */
