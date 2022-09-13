@@ -69,7 +69,7 @@ router.put('/:id', async function(req, res, next) {
 /* DELETE partner */
 router.delete('/:id', async function(req, res, next) {
   try {
-    res.json(await partners.remove(req.params.id));
+    res.json(await partners.removePartner(req.params.id));
   } catch (err) {
     console.error(`Error while deleting product`, err.message);
     next(err);
