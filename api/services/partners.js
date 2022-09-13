@@ -88,11 +88,26 @@ async function update(id, partner){
   return {message};
 }
 
+async function removePartner(id){
+  const result = await db.query(
+    `DELETE FROM partners WHERE id=${id}`
+  );
+
+  let message = 'Error in deleting product';
+
+  if (result.affectedRows) {
+    message = 'Product deleted successfully';
+  }
+
+  return {message};
+}
+
 module.exports = {
   getMultiple,
   searchPartner,
   filterStudents,
   filterFreePass,
   create,
-  update
+  update,
+  removePartner
 }
