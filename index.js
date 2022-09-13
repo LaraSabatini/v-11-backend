@@ -8,7 +8,6 @@ const trainersRouter = require("./api/routes/trainers");
 const productsRouter = require("./api/routes/products");
 const categoriesRouter = require("./api/routes/categories");
 const brandsRouter = require("./api/routes/brands");
-const purchasesRouter = require("./api/routes/purchases");
 const pricesRouter = require("./api/routes/prices");
 const combosRouter = require("./api/routes/combos")
 const partnersPaymentRouter = require("./api/routes/partnersPayment")
@@ -78,15 +77,6 @@ app.use((err, req, res, next) => {
 });
 
 app.use("/brands", brandsRouter);
-/* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message});
-  return;
-});
-
-app.use("/purchases", purchasesRouter);
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
