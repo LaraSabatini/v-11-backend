@@ -13,6 +13,7 @@ const combosRouter = require("./api/routes/combos")
 const partnersPaymentRouter = require("./api/routes/partnersPayment")
 const productPurchasesRouter = require("./api/routes/productPurchases")
 const scheduleRouter = require("./api/routes/schedule")
+const clientsRouter = require("./api/routes/clients")
 
 app.use(express.json());
 app.use(
@@ -42,6 +43,15 @@ app.use((err, req, res, next) => {
 });
 
 app.use("/partners", partnersRouter);
+/* Error handler middleware */
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  console.error(err.message, err.stack);
+  res.status(statusCode).json({ message: err.message});
+  return;
+});
+
+app.use("/clients", clientsRouter);
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

@@ -5,7 +5,7 @@ const config = require('../../config');
 async function getMultiple(page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
-    `SELECT * FROM partners LIMIT ${offset},${config.listPerPage}`
+    `SELECT * FROM clients LIMIT ${offset},${config.listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
   const meta = {page};
@@ -19,7 +19,7 @@ async function getMultiple(page = 1){
 async function searchPartner(value, page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
-      `SELECT * FROM partners WHERE name LIKE '%${value}%' OR identification_number LIKE '%${value}%' LIMIT ${offset},${config.listPerPage}`
+      `SELECT * FROM clients WHERE name LIKE '%${value}%' OR identification_number LIKE '%${value}%' LIMIT ${offset},${config.listPerPage}`
     )
     const data = helper.emptyOrRows(rows);
     const meta = {page};
@@ -33,7 +33,7 @@ async function searchPartner(value, page = 1){
 async function filterStudents(value, page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
-    `SELECT * FROM partners WHERE trainer_id > '${value}' LIMIT ${offset},${config.listPerPage}`
+    `SELECT * FROM clients WHERE hours_and_days IS NOT NULL LIMIT ${offset},${config.listPerPage}`
     )
   const data = helper.emptyOrRows(rows);
   const meta = {page};
@@ -47,7 +47,7 @@ async function filterStudents(value, page = 1){
 async function filterFreePass(value, page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
-    `SELECT * FROM partners WHERE free_pass = '${value}' LIMIT ${offset},${config.listPerPage}`
+    `SELECT * FROM clients WHERE free_pass = '${value}' LIMIT ${offset},${config.listPerPage}`
   )
   const data = helper.emptyOrRows(rows);
   const meta = {page};
@@ -60,8 +60,8 @@ async function filterFreePass(value, page = 1){
 
 async function create(partner){
   const result = await db.query(
-    `INSERT INTO partners(name, last_name, identification_number, birth_date, email, membership_start_date, created_by, trainer_id, free_pass)
-    VALUES ('${partner.name}','${partner.last_name}', '${partner.identification_number}', '${partner.birth_date}', '${partner.email}', '${partner.membership_start_date}', '${partner.created_by}', '${partner.trainer_id}', '${partner.free_pass}')`
+    `INSERT INTO clients(name, last_name, identification_number, birth_date, email, phone, subs, membership_start_date, created_by, free_pass, hours_and_days)
+    VALUES ('${partner.name}','${partner.last_name}', '${partner.identification_number}', '${partner.birth_date}', '${partner.email}', '${partner.phone}', '${partner.subs}', '${partner.membership_start_date}', '${partner.created_by}', '${partner.free_pass}', '${partner.hours_and_days}')`
   );
 
   let message = 'Error in creating partner';
@@ -76,7 +76,7 @@ async function create(partner){
 
 async function update(id, partner){
   const result = await db.query(
-    `UPDATE partners SET id='${partner.id}',name='${partner.name}',last_name='${partner.last_name}',identification_number='${partner.identification_number}',birth_date='${partner.birth_date}',email='${partner.email}',membership_start_date='${partner.membership_start_date}',created_by='${partner.created_by}',trainer_id='${partner.trainer_id}',free_pass='${partner.free_pass}' WHERE id='${id}'`
+    `UPDATE clients SET id='${partner.id}',name='${partner.name}',last_name='${partner.last_name}',identification_number='${partner.identification_number}',birth_date='${partner.birth_date}',email='${partner.email}',phone='${partner.phone}',subs='${partner.subs}',membership_start_date='${partner.membership_start_date}',created_by='${partner.created_by}',free_pass='${partner.free_pass}',days_and_hours='${partner.days_and_hours}' WHERE id='${id}'`
   );
 
   let message = 'Error in updating partner';
@@ -90,7 +90,7 @@ async function update(id, partner){
 
 async function removePartner(id){
   const result = await db.query(
-    `DELETE FROM partners WHERE id=${id}`
+    `DELETE FROM clients WHERE id=${id}`
   );
 
   let message = 'Error in deleting product';
