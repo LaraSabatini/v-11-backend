@@ -61,7 +61,7 @@ async function filterFreePass(value, page = 1){
 async function create(partner){
   const result = await db.query(
     `INSERT INTO partners(name, last_name, identification_number, birth_date, email, phone, subs, membership_start_date, created_by, free_pass, is_student)
-    VALUES ('${partner.name}','${partner.last_name}', '${partner.identification_number}', '${partner.birth_date}', '${partner.email}', '${partner.phone}', '${partner.subs}', '${partner.membership_start_date}', '${partner.created_by}', '${partner.is_student}', '${partner.free_pass}')`
+    VALUES ('${partner.name}','${partner.last_name}', '${partner.identification_number}', '${partner.birth_date}', '${partner.email}', '${partner.phone}', '${partner.subs}', '${partner.membership_start_date}', '${partner.created_by}', '${partner.free_pass}', '${partner.is_student}')`
   );
 
   let message = 'Error in creating partner';
@@ -76,7 +76,7 @@ async function create(partner){
 
 async function update(id, partner){
   const result = await db.query(
-    `UPDATE partners SET id='${partner.id}',name='${partner.name}',last_name='${partner.last_name}',identification_number='${partner.identification_number}',birth_date='${partner.birth_date}',email='${partner.email}',phone='${partner.phone}',subs='${partner.subs}',membership_start_date='${partner.membership_start_date}',created_by='${partner.created_by}',is_student='${partner.is_student}',free_pass='${partner.free_pass}' WHERE id='${id}'`
+    `UPDATE partners SET id='${partner.id}',name='${partner.name}',last_name='${partner.last_name}',identification_number='${partner.identification_number}',birth_date='${partner.birth_date}',email='${partner.email}',phone='${partner.phone}',subs='${partner.subs}',membership_start_date='${partner.membership_start_date}',created_by='${partner.created_by}',free_pass='${partner.free_pass}',is_student='${partner.is_student}' WHERE id='${id}'`
   );
 
   let message = 'Error in updating partner';
