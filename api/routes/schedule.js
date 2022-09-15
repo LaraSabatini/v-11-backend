@@ -3,7 +3,7 @@ const router = express.Router();
 const schedule = require('../services/schedule');
 
 /* GET schedule */
-router.get('/schedule', async function(req, res, next) {
+router.get('/', async function(req, res, next) {
   try {
     res.json(await schedule.getSchedule(req.query.page));
     console.log(req);
@@ -13,35 +13,14 @@ router.get('/schedule', async function(req, res, next) {
   }
 });
 
-/* GET days */
-router.get('/days', async function(req, res, next) {
-    try {
-      res.json(await schedule.getDays(req.query.page));
-      console.log(req);
-    } catch (err) {
-      console.error(`Error while getting days `, err.message);
-      next(err);
-    }
-});
-
 /* POST schedule */
-router.post('/schedule', async function(req, res, next) {
+router.post('/', async function(req, res, next) {
   try {
     res.json(await schedule.createSchedule(req.body));
   } catch (err) {
     console.error(`Error while creating trainer`, err.message);
     next(err);
   }
-});
-
-/* POST trainers */
-router.post('/days', async function(req, res, next) {
-    try {
-      res.json(await schedule.addDays(req.body));
-    } catch (err) {
-      console.error(`Error while creating trainer`, err.message);
-      next(err);
-    }
 });
 
 /* PUT schedule */
