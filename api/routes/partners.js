@@ -25,9 +25,9 @@ router.get('/:value', async function(req, res, next) {
 });
 
 /* SEARCH students */
-router.get('/students/:value', async function(req, res, next) {
+router.get('/students/', async function(req, res, next) {
   try {
-    res.json(await partners.filterStudents(req.params.value, req.query.page));
+    res.json(await partners.filterStudents(req.query.page));
     console.log(req);
   } catch (err) {
     console.error(`Error while getting the partners `, err.message);

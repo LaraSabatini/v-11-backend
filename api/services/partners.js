@@ -30,10 +30,10 @@ async function searchPartner(value, page = 1){
     }
 };
 
-async function filterStudents(value, page = 1){
+async function filterStudents(page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
-    `SELECT * FROM partners WHERE is_student = '${value}' LIMIT ${offset},${config.listPerPage}`
+    `SELECT * FROM partners WHERE is_student = 'SI' LIMIT ${offset},${config.listPerPage}`
     )
   const data = helper.emptyOrRows(rows);
   const meta = {page};
