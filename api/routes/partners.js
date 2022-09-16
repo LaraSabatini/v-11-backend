@@ -25,7 +25,7 @@ router.get('/:value', async function(req, res, next) {
 });
 
 /* SEARCH students */
-router.get('/students/', async function(req, res, next) {
+router.get('/students', async function(req, res, next) {
   try {
     res.json(await partners.filterStudents(req.query.page));
     console.log(req);
