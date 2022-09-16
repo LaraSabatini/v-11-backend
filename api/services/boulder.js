@@ -22,10 +22,10 @@ async function create(partnerPayment){
     VALUES ('${partnerPayment.partner_id}','${partnerPayment.combo}', '${partnerPayment.time_paid}', '${partnerPayment.time_paid_unit}', '${partnerPayment.clases_paid}', '${partnerPayment.payment_method_id}', '${partnerPayment.price_paid}', '${partnerPayment.date}')`
   );
 
-  let message = 'Error in creating partnerPayment';
+  let message = 'Error in creating payment';
 
   if (result.affectedRows) {
-    message = 'partnerPayment created successfully';
+    message = 'payment created successfully';
   }
 
   return {message};

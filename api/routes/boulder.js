@@ -8,7 +8,7 @@ router.get('/', async function(req, res, next) {
     res.json(await boulderPurchases.getMultiple(req.query.page));
     console.log(req);
   } catch (err) {
-    console.error(`Error while getting the store data `, err.message);
+    console.error(`Error while getting payments `, err.message);
     next(err);
   }
 });
@@ -18,7 +18,7 @@ router.post('/', async function(req, res, next) {
   try {
     res.json(await boulderPurchases.create(req.body));
   } catch (err) {
-    console.error(`Error while creating product purchase`, err.message);
+    console.error(`Error while creating payment`, err.message);
     next(err);
   }
 });
