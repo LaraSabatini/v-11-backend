@@ -19,7 +19,8 @@ async function getMultiple(page = 1){
 async function searchPurchasesByPartner(value, page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
-      `SELECT * FROM partner_payments WHERE partner_name LIKE '%${value}%' LIMIT ${offset},${config.listPerPage}`
+      `SELECT * FROM partner_payments WHERE partner_name LIKE '%${value}%'  LIMIT ${offset},${config.listPerPage}`
+      `SELECT * FROM partners WHERE name LIKE '%${value}%' OR identification_number LIKE '%${value}%' OR last_name LIKE '%${value}%' LIMIT ${offset},${config.listPerPage}`
     )
     const data = helper.emptyOrRows(rows);
     const meta = {page};
