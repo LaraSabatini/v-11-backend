@@ -30,6 +30,20 @@ async function searchPurchasesByPartner(value, page = 1){
     }
 };
 
+async function searchClases(value, page = 1){
+  const offset = helper.getOffset(page, config.listPerPage);
+  const rows = await db.query(
+    `SELECT * FROM partner_payments WHERE clases_paid > '${value}' LIMIT ${offset},${config.listPerPage}`
+  )
+  const data = helper.emptyOrRows(rows);
+  const meta = {page};
+
+  return {
+      data,
+      meta
+  }
+};
+
 async function getPurchaseByPartnerId(id, page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
@@ -78,5 +92,6 @@ module.exports = {
     searchPurchasesByPartner,
     create,
     update,
-    getPurchaseByPartnerId
+    getPurchaseByPartnerId,
+    searchClases
 }
