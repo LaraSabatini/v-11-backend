@@ -30,6 +30,20 @@ async function searchPurchasesByPartner(value, page = 1){
     }
 };
 
+async function getPurchaseByPartnerId(id, page = 1){
+  const offset = helper.getOffset(page, config.listPerPage);
+  const rows = await db.query(
+    `SELECT * FROM partner_payments WHERE partner_id = ${id} LIMIT ${offset},${config.listPerPage}`
+  )
+  const data = helper.emptyOrRows(rows);
+  const meta = {page};
+
+  return {
+      data,
+      meta
+  }
+};
+
 async function create(partnerPayment){
   const result = await db.query(
     `INSERT INTO partner_payments(partner_id, partner_name, partner_last_name, combo, time_paid, time_paid_unit, clases_paid, payment_method_id, payment_method_name, price_paid, date, payment_expire_date, days_and_hours)
@@ -63,5 +77,6 @@ module.exports = {
     getMultiple,
     searchPurchasesByPartner,
     create,
-    update
+    update,
+    getPurchaseByPartnerId
 }
