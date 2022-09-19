@@ -19,7 +19,7 @@ async function getMultiple(page = 1){
 async function filterByDate(date, page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
-    `SELECT * FROM boulder_payments WHERE date LIKE '%${date}%' LIMIT ${offset},${config.listPerPage}`
+    `SELECT * FROM boulder_payments WHERE date = '${date}' LIMIT ${offset},${config.listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
   const meta = {page};
