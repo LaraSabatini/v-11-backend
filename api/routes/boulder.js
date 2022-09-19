@@ -16,7 +16,7 @@ router.get('/', async function(req, res, next) {
 /* SEARCH by date */
 router.get('/date=:date', async function(req, res, next) {
   try {
-    res.json(await boulderPurchases.filterByDate(req.params.date, req.query.page));
+    res.json(await boulderPurchases.filterByDate(req.params.date));
     console.log(req);
   } catch (err) {
     console.error(`Error while getting search `, err.message);
