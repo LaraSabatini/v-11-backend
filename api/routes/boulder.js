@@ -13,6 +13,17 @@ router.get('/', async function(req, res, next) {
   }
 });
 
+/* SEARCH by date */
+router.get('/:date', async function(req, res, next) {
+  try {
+    res.json(await boulderPurchases.filterByDate(req.params.date, req.query.page));
+    console.log(req);
+  } catch (err) {
+    console.error(`Error while getting search `, err.message);
+    next(err);
+  }
+});
+
 /* POST purchase */
 router.post('/', async function(req, res, next) {
   try {
