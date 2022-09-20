@@ -98,7 +98,7 @@ async function update(id, partnerPayment){
   return {message};
 }
 
-async function getEarningsByDate(date, page = 1){
+async function getEarningsByDate(date){
   const rows = await db.query(
     `SELECT price_paid, payment_method_id FROM partner_payments WHERE date = '${date}'`
   )

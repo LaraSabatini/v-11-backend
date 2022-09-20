@@ -49,7 +49,7 @@ router.get('/clases/:value', async function(req, res, next) {
 /* SEARCH partnersPayment by date */
 router.get('/cards/:date', async function(req, res, next) {
   try {
-    res.json(await partnersPayment.getEarningsByDate(req.params.date, req.query.page));
+    res.json(await partnersPayment.getEarningsByDate(req.params.date));
     console.log(req);
   } catch (err) {
     console.error(`Error while getting search `, err.message);
