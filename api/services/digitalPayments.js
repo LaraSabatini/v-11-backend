@@ -80,8 +80,8 @@ async function searchByDate(date, page = 1){
 // crear
 async function createDigitalPayment(payment){
   const result = await db.query(
-    `INSERT INTO digital_payments(user_id, user_name, product_id, product_name, date, month, month_id, amount_of_products, total_profit)
-    VALUES ('${payment.user_id}', '${payment.user_name}', '${payment.product_id}', '${payment.product_name}', '${payment.date}', '${payment.month}', '${payment.month_id}', '${payment.amount_of_products}', '${payment.total_profit}')`
+    `INSERT INTO digital_payments(user_id, user_name, date, month, month_id, total_profit)
+    VALUES ('${payment.user_id}', '${payment.user_name}', '${payment.date}', '${payment.month}', '${payment.month_id}', '${payment.total_profit}')`
   );
 
   let message = 'Error in creating payment';
@@ -95,7 +95,7 @@ async function createDigitalPayment(payment){
 
 async function updateDigitalPayment(id, payment){
   const result = await db.query(
-    `UPDATE digital_payments SET id=${payment.id},user_id=${payment.user_id}, user_name=${payment.user_name}, product_id=${payment.product_id}, product_name=${payment.product_name}, date=${payment.date}, month=${payment.month}, month_id=${payment.month_id}, amount_of_products=${payment.amount_of_products}, total_profit=${payment.total_profit} WHERE id='${id}'`
+    `UPDATE digital_payments SET id=${payment.id},user_id=${payment.user_id}, user_name=${payment.user_name}, date=${payment.date}, month=${payment.month}, month_id=${payment.month_id}, total_profit=${payment.total_profit} WHERE id='${id}'`
   );
 
   let message = 'Error in updating payment';
