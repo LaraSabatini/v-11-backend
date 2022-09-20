@@ -95,7 +95,7 @@ async function createDigitalPayment(payment){
 
 async function updateDigitalPayment(id, payment){
   const result = await db.query(
-    `UPDATE digital_payments SET id=${payment.id},user_id=${payment.user_id}, user_name=${payment.user_name}, date=${payment.date}, month=${payment.month}, month_id=${payment.month_id}, total_profit=${payment.total_profit} WHERE id='${id}'`
+    `UPDATE digital_payments SET id=${payment.id},user_id=${payment.user_id},user_name=${payment.user_name},date=${payment.date},month=${payment.month},month_id=${payment.month_id},total_profit=${payment.total_profit} WHERE id='${id}'`
   );
 
   let message = 'Error in updating payment';
