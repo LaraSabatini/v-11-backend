@@ -100,7 +100,7 @@ async function update(id, partnerPayment){
 
 async function getEarningsByDate(date){
   const rows = await db.query(
-    `SELECT price_paid, payment_method_id FROM partner_payments WHERE date = '${date}'`
+    `SELECT price_paid, payment_method_id, combo, time_paid, time_paid_unit, clases_paid FROM partner_payments WHERE date = '${date}'`
   )
   const data = helper.emptyOrRows(rows);
 
