@@ -44,17 +44,14 @@ async function searchClases(value, page = 1){
   }
 };
 
-async function getPurchaseByPartnerId(id, page = 1){
-  const offset = helper.getOffset(page, config.listPerPage);
+async function getPurchaseByPartnerId(id){
   const rows = await db.query(
-    `SELECT * FROM partner_payments WHERE partner_id = ${id} LIMIT ${offset},${config.listPerPage}`
+    `SELECT * FROM partner_payments WHERE partner_id = ${id}`
   )
   const data = helper.emptyOrRows(rows);
-  const meta = {page};
 
   return {
       data,
-      meta
   }
 };
 
