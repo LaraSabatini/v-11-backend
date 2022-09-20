@@ -21,7 +21,7 @@ async function getAll(page = 1){
 async function searchByUserAndDate(user_id, date, page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
-      `SELECT * FROM digital_payments WHERE user_id = '${user_id}' AND date = '${date}' LIMIT ${offset},${config.listPerPage}`
+      `SELECT * FROM digital_payments WHERE user_id = '${user_id}' AND date LIKE '${date}' LIMIT ${offset},${config.listPerPage}`
     )
     const data = helper.emptyOrRows(rows);
     const meta = {page};
