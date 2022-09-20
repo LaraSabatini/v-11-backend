@@ -17,26 +17,11 @@ async function getAll(page = 1){
   }
 };
 
-// buscar x user_id && product_id
-async function searchByUserAndProduct(user_id, product_id, page = 1){
+// buscar x user_id && date
+async function searchByUserAndDate(user_id, date, page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
-      `SELECT * FROM digital_payments WHERE user_id = '${user_id}' AND product_id = '${product_id}' LIMIT ${offset},${config.listPerPage}`
-    )
-    const data = helper.emptyOrRows(rows);
-    const meta = {page};
-  
-    return {
-        data,
-        meta
-    }
-};
-
-// buscar x user_id && product_id && month
-async function searchByUserAndProductAndMonth(user_id, product_id, month_id, page = 1){
-    const offset = helper.getOffset(page, config.listPerPage);
-    const rows = await db.query(
-      `SELECT * FROM digital_payments WHERE user_id = '${user_id}' AND product_id = '${product_id}' AND month_id = '${month_id}' LIMIT ${offset},${config.listPerPage}`
+      `SELECT * FROM digital_payments WHERE user_id = '${user_id}' AND date = '${date}' LIMIT ${offset},${config.listPerPage}`
     )
     const data = helper.emptyOrRows(rows);
     const meta = {page};
@@ -126,9 +111,8 @@ module.exports = {
     getAll,
     createDigitalPayment,
     updateDigitalPayment,
-    searchByUserAndProduct,
     searchByUser,
     searchByMonth,
     searchByDate,
-    searchByUserAndProductAndMonth
+    searchByUserAndDate
 }
