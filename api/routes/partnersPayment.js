@@ -24,6 +24,17 @@ router.get('/:value', async function(req, res, next) {
     }
 });
 
+/* SEARCH partnersPayment by date */
+router.get('/date/:value', async function(req, res, next) {
+  try {
+    res.json(await partnersPayment.searchPurchasesByDate(req.params.value, req.query.page));
+    console.log(req);
+  } catch (err) {
+    console.error(`Error while getting search `, err.message);
+    next(err);
+  }
+});
+
 /* SEARCH partnersPayment by clases */
 router.get('/clases/:value', async function(req, res, next) {
   try {

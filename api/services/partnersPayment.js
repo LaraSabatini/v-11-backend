@@ -30,6 +30,20 @@ async function searchPurchasesByPartner(value, page = 1){
     }
 };
 
+async function searchPurchasesByDate(value, page = 1){
+  const offset = helper.getOffset(page, config.listPerPage);
+  const rows = await db.query(
+    `SELECT * FROM partner_payments WHERE date LIKE '%${value}%' LIMIT ${offset},${config.listPerPage}`
+  )
+  const data = helper.emptyOrRows(rows);
+  const meta = {page};
+
+  return {
+      data,
+      meta
+  }
+};
+
 async function searchClases(value, page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
@@ -90,5 +104,6 @@ module.exports = {
     create,
     update,
     getPurchaseByPartnerId,
-    searchClases
+    searchClases,
+    searchPurchasesByDate
 }
