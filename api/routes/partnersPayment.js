@@ -46,6 +46,17 @@ router.get('/clases/:value', async function(req, res, next) {
   }
 });
 
+/* SEARCH partnersPayment by date */
+router.get('/cards/:date', async function(req, res, next) {
+  try {
+    res.json(await partnersPayment.getEarningsByDate(req.params.date, req.query.page));
+    console.log(req);
+  } catch (err) {
+    console.error(`Error while getting search `, err.message);
+    next(err);
+  }
+});
+
 /* SEARCH partnersPayment by partner_id */
 router.get('/payment_by_partner_id/:value', async function(req, res, next) {
   try {

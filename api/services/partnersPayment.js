@@ -98,6 +98,18 @@ async function update(id, partnerPayment){
   return {message};
 }
 
+async function getEarningsByDate(date, page = 1){
+  const rows = await db.query(
+    `SELECT price_paid, payment_method_id FROM partner_payments WHERE date = '${date}'`
+  )
+  const data = helper.emptyOrRows(rows);
+
+  return {
+      data,
+  }
+};
+
+
 module.exports = {
     getMultiple,
     searchPurchasesByPartner,
@@ -105,5 +117,6 @@ module.exports = {
     update,
     getPurchaseByPartnerId,
     searchClases,
-    searchPurchasesByDate
+    searchPurchasesByDate,
+    getEarningsByDate
 }
