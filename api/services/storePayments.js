@@ -27,9 +27,9 @@ async function getByDate(date){
     }
 };
 
-async function getByDateAndPaymentMethodAndProduct(date, payment_method_id, product_id){
+async function getByDateAndPaymentMethodAndProduct(date, product, payment){
   const rows = await db.query(
-    `SELECT * FROM store_payments WHERE date LIKE '${date}' AND payment_method_id = '${payment_method_id}' AND product_id = '${product_id}'`
+    `SELECT * FROM store_payments WHERE date LIKE '${date}' AND product_id = ${product} AND payment_method_id = ${payment}`
   )
   const data = helper.emptyOrRows(rows);
 
