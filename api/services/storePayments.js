@@ -16,15 +16,26 @@ async function getMultiple(page = 1){
     }
 };
 
-async function getByDate(date, payment_method_id){
+async function getByDate(date){
     const rows = await db.query(
-      `SELECT * FROM store_payments WHERE date = '${date}' AND payment_method_id = '${payment_method_id}'`
+      `SELECT * FROM store_payments WHERE date = '${date}'`
     )
     const data = helper.emptyOrRows(rows);
 
     return {
         data,
     }
+};
+
+async function getByDateAndPaymentMethod(date, payment_method_id){
+  const rows = await db.query(
+    `SELECT * FROM store_payments WHERE date = '${date}' AND payment_method_id = '${payment_method_id}'`
+  )
+  const data = helper.emptyOrRows(rows);
+
+  return {
+      data,
+  }
 };
 
 async function create(productPurchase){
@@ -60,5 +71,6 @@ module.exports = {
     getMultiple,
     create,
     update,
-    getByDate
+    getByDate,
+    getByDateAndPaymentMethod
 }
