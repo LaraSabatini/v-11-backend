@@ -55,7 +55,7 @@ async function create(productPurchase){
 
 async function update(id, productPurchase){
   const result = await db.query(
-    `UPDATE store_payments SET id='${productPurchase.id}',product_id='${productPurchase.product_id}',product_id='${productPurchase.product_id}',amount_of_itmes='${productPurchase.amount_of_itmes}',profit='${productPurchase.profit}',payment_method_id='${productPurchase.payment_method_id}',date='${productPurchase.date}' WHERE id='${id}'`
+    `UPDATE store_payments SET id='${productPurchase.id}',product_id='${productPurchase.product_id}',product_name='${productPurchase.product_name}',amount_of_items='${productPurchase.amount_of_items}',profit='${productPurchase.profit}',payment_method_id='${productPurchase.payment_method_id}',date='${productPurchase.date}' WHERE id='${id}'`
   );
 
   let message = 'Error in updating store_payments';
