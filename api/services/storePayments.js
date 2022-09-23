@@ -27,9 +27,9 @@ async function getByDate(date){
     }
 };
 
-async function getByDateAndPaymentMethod(date, payment_method_id){
+async function getByDateAndPaymentMethodAndProduct(date, payment_method_id, product_id){
   const rows = await db.query(
-    `SELECT * FROM store_payments WHERE date = '${date}' AND payment_method_id = '${payment_method_id}'`
+    `SELECT * FROM store_payments WHERE date = '${date}' AND payment_method_id = '${payment_method_id}' AND product_id = '${product_id}'`
   )
   const data = helper.emptyOrRows(rows);
 
@@ -72,5 +72,5 @@ module.exports = {
     create,
     update,
     getByDate,
-    getByDateAndPaymentMethod
+    getByDateAndPaymentMethodAndProduct
 }

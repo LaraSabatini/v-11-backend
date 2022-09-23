@@ -25,9 +25,9 @@ router.get('/date=:date', async function(req, res, next) {
 });
 
 /* SEARCH purchases by month and product */
-router.get('/date=:date&payment_method_id=:payment_method_id', async function(req, res, next) {
+router.get('/date=:date&payment_method_id=:payment_method_id&product_id=:product_id', async function(req, res, next) {
   try {
-    res.json(await storePayments.getByDateAndPaymentMethod(req.params.date, req.params.payment_method_id, req.query.page));
+    res.json(await storePayments.getByDateAndPaymentMethodAndProduct(req.params.date, req.params.payment_method_id, req.params.product_id, req.query.page));
     console.log(req);
   } catch (err) {
     console.error(`Error while getting search `, err.message);
