@@ -16,9 +16,9 @@ async function getMultiple(page = 1){
     }
 };
 
-async function getByDate(date){
+async function getByDate(date, payment_method_id){
     const rows = await db.query(
-      `SELECT * FROM store_payments WHERE date = '${date}'`
+      `SELECT * FROM store_payments WHERE date = '${date}' AND payment_method_id = '${payment_method_id}'`
     )
     const data = helper.emptyOrRows(rows);
 
