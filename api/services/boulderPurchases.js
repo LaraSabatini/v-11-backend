@@ -1,6 +1,17 @@
 const db = require('./db');
 const helper = require('../../helper');
 
+async function getAll(value){
+  const rows = await db.query(
+    `SELECT * FROM boulder_purchases`
+  )
+  const data = helper.emptyOrRows(rows);
+
+  return {
+      data,
+  }
+};
+
 async function searchPurchasesByDate(value){
     const rows = await db.query(
       `SELECT * FROM boulder_purchases WHERE date LIKE '%${value}%'`
@@ -25,9 +36,10 @@ async function create(bouderPayment){
     }
   
     return {message};
-  }
+}
 
 module.exports = {
     searchPurchasesByDate,
-    create
+    create,
+    getAll
 }
