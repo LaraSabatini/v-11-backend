@@ -11,7 +11,6 @@ const brandsRouter = require("./api/routes/brands");
 const pricesRouter = require("./api/routes/prices");
 const combosRouter = require("./api/routes/combos")
 const partnersPaymentRouter = require("./api/routes/partnersPayment")
-const productPurchasesRouter = require("./api/routes/productPurchases")
 const scheduleRouter = require("./api/routes/schedule")
 const digitalPaymentsRouter = require("./api/routes/digitalPayments")
 const storePaymentsRouter = require("./api/routes/storePayments")
@@ -107,15 +106,6 @@ app.use((err, req, res, next) => {
 });
 
 app.use("/partnersPayment", partnersPaymentRouter);
-/* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message});
-  return;
-});
-
-app.use("/productPurchases", productPurchasesRouter);
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
