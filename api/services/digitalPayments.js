@@ -63,17 +63,14 @@ async function searchByMonth(month_id, page = 1){
 };
 
 // buscar x fecha
-async function searchByDate(date, page = 1){
-    const offset = helper.getOffset(page, config.listPerPage);
+async function searchByDate(date){
     const rows = await db.query(
-      `SELECT * FROM digital_payments WHERE date = '${date}' LIMIT ${offset},${config.listPerPage}`
+      `SELECT * FROM digital_payments WHERE date LIKE '%${date}%'`
     )
     const data = helper.emptyOrRows(rows);
-    const meta = {page};
   
     return {
         data,
-        meta
     }
 };
 

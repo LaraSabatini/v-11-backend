@@ -38,7 +38,7 @@ router.get('/by-month/month_id=:month_id', async function(req, res, next) {
 /* SEARCH by date */
 router.get('/by-date/date=:date', async function(req, res, next) {
     try {
-      res.json(await digitalPayments.searchByDate(req.params.date, req.query.page));
+      res.json(await digitalPayments.searchByDate(req.params.date));
       console.log(req);
     } catch (err) {
       console.error(`Error getting the data `, err.message);
