@@ -15,6 +15,7 @@ const scheduleRouter = require("./api/routes/schedule")
 const digitalPaymentsRouter = require("./api/routes/digitalPayments")
 const storePaymentsRouter = require("./api/routes/storePayments")
 const boulderPurchasesRouter = require("./api/routes/boulderPurchases")
+const workingHoursRouter = require("./api/routes/workingHours")
 
 app.use(express.json());
 app.use(
@@ -143,6 +144,15 @@ app.use((err, req, res, next) => {
 });
 
 app.use("/boulderPurchases", boulderPurchasesRouter);
+/* Error handler middleware */
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  console.error(err.message, err.stack);
+  res.status(statusCode).json({ message: err.message});
+  return;
+});
+
+app.use("/workingHours", workingHoursRouter);
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
