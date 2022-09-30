@@ -14,7 +14,7 @@ router.get('/', async function(req, res, next) {
 });
 
 /* SEARCH partners */
-router.get('/:weekId', async function(req, res, next) {
+router.get('/weekId=:weekId', async function(req, res, next) {
     try {
       res.json(await workingHours.getByWeek(req.params.weekId, req.query.page));
       console.log(req);
