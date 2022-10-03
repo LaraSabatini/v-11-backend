@@ -2,19 +2,25 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+// GENERAL
 const usersRouter = require("./api/routes/users");
-const partnersRouter = require("./api/routes/partners");
-const trainersRouter = require("./api/routes/trainers");
+// STORE && PAYMENTS
 const productsRouter = require("./api/routes/products");
-const categoriesRouter = require("./api/routes/categories");
 const brandsRouter = require("./api/routes/brands");
-const pricesRouter = require("./api/routes/prices");
-const combosRouter = require("./api/routes/combos")
-const partnersPaymentRouter = require("./api/routes/partnersPayment")
-const scheduleRouter = require("./api/routes/schedule")
+const categoriesRouter = require("./api/routes/categories");
 const digitalPaymentsRouter = require("./api/routes/digitalPayments")
 const storePaymentsRouter = require("./api/routes/storePayments")
 const boulderPurchasesRouter = require("./api/routes/boulderPurchases")
+const partnersPaymentRouter = require("./api/routes/partnersPayment")
+// PARTNERS
+const partnersRouter = require("./api/routes/partners");
+const trainersRouter = require("./api/routes/trainers");
+const pricesRouter = require("./api/routes/prices");
+const combosRouter = require("./api/routes/combos")
+const scheduleRouter = require("./api/routes/schedule")
+// lessons
+const lessonsPurchasedRouter = require("./api/routes/lessonsPurchased")
+// FINANCES
 const workingHoursRouter = require("./api/routes/workingHours")
 
 app.use(express.json());
@@ -153,6 +159,15 @@ app.use((err, req, res, next) => {
 });
 
 app.use("/workingHours", workingHoursRouter);
+/* Error handler middleware */
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  console.error(err.message, err.stack);
+  res.status(statusCode).json({ message: err.message});
+  return;
+});
+
+app.use("/lessonsPurchased", lessonsPurchasedRouter);
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
