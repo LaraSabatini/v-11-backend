@@ -23,6 +23,16 @@ router.get('/week=:week', async function(req, res, next) {
     }
 });
 
+router.get('/date=:date?shift=:shift', async function(req, res, next) {
+  try {
+    res.json(await lessonsPurchased.getByDateAndShift(req.params.date, req.params.shift, req.query.page));
+    console.log(req);
+  } catch (err) {
+    console.error(`Error while getting search `, err.message);
+    next(err);
+  }
+});
+
 router.post('/', async function(req, res, next) {
     try {
       res.json(await lessonsPurchased.createPurchase(req.body));

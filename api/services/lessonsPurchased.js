@@ -28,6 +28,17 @@ async function getByWeek(week){
     }
 };
 
+async function getByDateAndShift(date, shift){
+  const rows = await db.query(
+    `SELECT * FROM lessons_purchased WHERE lesson_date = '${date}' AND shift = '${shift}'`
+  )
+  const data = helper.emptyOrRows(rows);
+
+  return {
+      data,
+  }
+};
+
 async function createPurchase(lessonPurchase){
     const result = await db.query(
       `INSERT INTO lessons_purchased(lesson_date, shift, partner_id, partner_name, partner_last_name, trainer_id, trainer_name, week_id)
@@ -61,5 +72,6 @@ module.exports = {
     getAll,
     getByWeek,
     createPurchase,
-    updateLessonPurchase
+    updateLessonPurchase,
+    getByDateAndShift
 }
