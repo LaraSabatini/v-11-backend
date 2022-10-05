@@ -41,8 +41,8 @@ async function getByDateAndShift(date, shift){
 
 async function createPurchase(lessonPurchase){
     const result = await db.query(
-      `INSERT INTO lessons_purchased(lesson_date, shift, partner_id, partner_name, partner_last_name, trainer_id, trainer_name, week_id)
-      VALUES ('${lessonPurchase.lesson_date}','${lessonPurchase.shift}', '${lessonPurchase.partner_id}', '${lessonPurchase.partner_name}', '${lessonPurchase.partner_last_name}', '${lessonPurchase.trainer_id}', '${lessonPurchase.trainer_id}', '${lessonPurchase.week_id}')`
+      `INSERT INTO lessons_purchased(lesson_date, shift, partner_id, partner_name, partner_last_name, trainer_id, trainer_name, week_id, paid)
+      VALUES ('${lessonPurchase.lesson_date}','${lessonPurchase.shift}', '${lessonPurchase.partner_id}', '${lessonPurchase.partner_name}', '${lessonPurchase.partner_last_name}', '${lessonPurchase.trainer_id}', '${lessonPurchase.trainer_id}', '${lessonPurchase.week_id}', '${lessonPurchase.paid}')`
     );
   
     let message = 'Error in creating lesson purchase';
@@ -56,7 +56,7 @@ async function createPurchase(lessonPurchase){
 
 async function updateLessonPurchase(id, lessonPurchase){
     const result = await db.query(
-      `UPDATE lessons_purchased SET id='${lessonPurchase.id}',lesson_date='${lessonPurchase.lesson_date}',shift='${lessonPurchase.shift}',partner_id='${lessonPurchase.partner_id}',partner_name='${lessonPurchase.partner_name}',partner_last_name='${lessonPurchase.partner_last_name}',trainer_id='${lessonPurchase.trainer_id}',trainer_id='${lessonPurchase.trainer_id}', week_id='${lessonPurchase.week_id}' WHERE id='${id}'`
+      `UPDATE lessons_purchased SET id='${lessonPurchase.id}',lesson_date='${lessonPurchase.lesson_date}',shift='${lessonPurchase.shift}',partner_id='${lessonPurchase.partner_id}',partner_name='${lessonPurchase.partner_name}',partner_last_name='${lessonPurchase.partner_last_name}',trainer_id='${lessonPurchase.trainer_id}',trainer_id='${lessonPurchase.trainer_id}', week_id='${lessonPurchase.week_id}', paid='${lessonPurchase.paid}' WHERE id='${id}'`
     );
   
     let message = 'Error in updating lesson purchase';
