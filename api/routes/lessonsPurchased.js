@@ -23,7 +23,7 @@ router.get('/week=:week', async function(req, res, next) {
     }
 });
 
-router.get('/date=:date?shift=:shift', async function(req, res, next) {
+router.get('/date=:date&shift=:shift', async function(req, res, next) {
   try {
     res.json(await lessonsPurchased.getByDateAndShift(req.params.date, req.params.shift, req.query.page));
     console.log(req);
