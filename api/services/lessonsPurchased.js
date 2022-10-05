@@ -30,7 +30,7 @@ async function getByWeek(week){
 
 async function getByDateAndShift(date, shift){
   const rows = await db.query(
-    `SELECT * FROM lessons_purchased WHERE lesson_date = '${date}' AND shift = '${shift}'`
+    `SELECT * FROM lessons_purchased WHERE lesson_date LIKE '${date}' AND shift = '${shift}'`
   )
   const data = helper.emptyOrRows(rows);
 
