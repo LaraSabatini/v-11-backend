@@ -24,6 +24,17 @@ router.get('/:value', async function(req, res, next) {
     }
 });
 
+/* SEARCH partners by id */
+router.get('/by-id/:value', async function(req, res, next) {
+  try {
+    res.json(await partners.getPartnerById(req.params.value));
+    console.log(req);
+  } catch (err) {
+    console.error(`Error while getting search `, err.message);
+    next(err);
+  }
+});
+
 /* SEARCH students */
 router.get('/students/:value', async function(req, res, next) {
   try {

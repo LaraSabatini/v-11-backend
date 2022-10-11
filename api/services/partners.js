@@ -100,7 +100,18 @@ async function removePartner(id){
   }
 
   return {message};
-}
+};
+
+async function getPartnerById(value){
+  const rows = await db.query(
+    `SELECT * FROM partners WHERE id = '${value}'`
+  )
+  const data = helper.emptyOrRows(rows);
+
+  return {
+      data,
+  }
+};
 
 module.exports = {
   getMultiple,
@@ -109,5 +120,6 @@ module.exports = {
   filterFreePass,
   create,
   update,
-  removePartner
+  removePartner,
+  getPartnerById
 }
