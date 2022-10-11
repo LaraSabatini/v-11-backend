@@ -28,6 +28,17 @@ async function getByWeek(week){
     }
 };
 
+async function getByPartnerIdAndPaid(id, paid){
+  const rows = await db.query(
+    `SELECT * FROM lessons_purchased WHERE partner_id = '${id}' AND paid = '${paid}'`
+  )
+  const data = helper.emptyOrRows(rows);
+
+  return {
+      data,
+  }
+};
+
 async function getByDateAndShift(date, shift){
   const rows = await db.query(
     `SELECT * FROM lessons_purchased WHERE lesson_date LIKE '${date}' AND shift = '${shift}'`
@@ -73,5 +84,6 @@ module.exports = {
     getByWeek,
     createPurchase,
     updateLessonPurchase,
-    getByDateAndShift
+    getByDateAndShift,
+    getByPartnerIdAndPaid
 }

@@ -33,6 +33,17 @@ router.get('/date=:date&shift=:shift', async function(req, res, next) {
   }
 });
 
+router.get('/partner-paid/id=:id&paid=:paid', async function(req, res, next) {
+  try {
+    res.json(await lessonsPurchased.getByPartnerIdAndPaid(req.params.id, req.params.paid, req.query.page));
+    console.log(req);
+  } catch (err) {
+    console.error(`Error while getting search `, err.message);
+    next(err);
+  }
+});
+
+
 router.post('/', async function(req, res, next) {
     try {
       res.json(await lessonsPurchased.createPurchase(req.body));
