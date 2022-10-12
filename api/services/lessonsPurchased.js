@@ -77,6 +77,20 @@ async function updateLessonPurchase(id, lessonPurchase){
     }
   
     return {message};
+};
+
+async function removeLessonPur(id){
+  const result = await db.query(
+    `DELETE FROM lessons_purchased WHERE id=${id}`
+  );
+
+  let message = 'Error in deleting purchase';
+
+  if (result.affectedRows) {
+    message = 'purchase deleted successfully';
+  }
+
+  return {message};
 }
 
 module.exports = {
@@ -85,5 +99,6 @@ module.exports = {
     createPurchase,
     updateLessonPurchase,
     getByDateAndShift,
-    getByPartnerIdAndPaid
+    getByPartnerIdAndPaid,
+    removeLessonPur
 }
