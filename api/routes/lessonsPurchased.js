@@ -64,7 +64,7 @@ router.post('/', async function(req, res, next) {
 
 router.delete('/:id', async function(req, res, next) {
   try {
-    res.json(await partners.removeLessonPur(req.params.id));
+    res.json(await lessonsPurchased.removeLessonPur(req.params.id));
   } catch (err) {
     console.error(`Error while deleting purchase`, err.message);
     next(err);
