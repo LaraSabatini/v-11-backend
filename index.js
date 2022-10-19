@@ -17,7 +17,6 @@ const partnersRouter = require("./api/routes/partners");
 const trainersRouter = require("./api/routes/trainers");
 const pricesRouter = require("./api/routes/prices");
 const combosRouter = require("./api/routes/combos")
-const scheduleRouter = require("./api/routes/schedule")
 // lessons
 const lessonsPurchasedRouter = require("./api/routes/lessonsPurchased")
 // FINANCES
@@ -114,15 +113,6 @@ app.use((err, req, res, next) => {
 });
 
 app.use("/partnersPayment", partnersPaymentRouter);
-/* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message});
-  return;
-});
-
-app.use("/schedule", scheduleRouter);
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
