@@ -8,8 +8,11 @@ async function getAll(page = 1){
   const rows = await db.query(
     `SELECT * FROM lessons_purchased LIMIT ${offset},${config.listPerPage}`
   );
+  const amountOfPages = await db.query(
+    `SELECT COUNT(*) FROM lessons_purchased`
+  );
   const data = helper.emptyOrRows(rows);
-  const meta = {page};
+  const meta = {page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25)};
 
   return {
       data,

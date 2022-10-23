@@ -1,25 +1,38 @@
 const db = require('./db');
 const helper = require('../../helper');
+const config = require('../../config');
 
-async function getAll(value){
+async function getAll(page=1){
+  const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
-    `SELECT * FROM boulder_purchases`
-  )
+    `SELECT * FROM boulder_purchases LIMIT ${offset},${config.listPerPage}`
+  );
+  const amountOfPages = await db.query(
+    `SELECT COUNT(*) FROM boulder_purchases`
+  );
   const data = helper.emptyOrRows(rows);
+  const meta = {page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25)};
 
   return {
       data,
+      meta
   }
 };
 
-async function searchPurchasesByDate(value){
+async function searchPurchasesByDate(value, page = 1){
+   const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
-      `SELECT * FROM boulder_purchases WHERE date LIKE '%${value}%'`
-    )
+      `SELECT * FROM boulder_purchases WHERE date LIKE '%${value}%' LIMIT ${offset},${config.listPerPage}`
+    );
+    const amountOfPages = await db.query(
+      `SELECT COUNT(*) FROM boulder_purchases WHERE date LIKE '${value}'`
+    );
     const data = helper.emptyOrRows(rows);
+    const meta = {page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25)};
   
     return {
         data,
+        meta
     }
 };
 

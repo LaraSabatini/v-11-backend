@@ -7,8 +7,11 @@ async function getMultiple(page = 1){
     const rows = await db.query(
       `SELECT * FROM partner_payments LIMIT ${offset},${config.listPerPage}`
     );
+    const amountOfPages = await db.query(
+      `SELECT COUNT(*) FROM partner_payments`
+    );
     const data = helper.emptyOrRows(rows);
-    const meta = {page};
+    const meta = {page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25)};
 
     return {
         data,

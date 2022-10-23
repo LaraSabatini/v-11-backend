@@ -4,7 +4,7 @@ const boulderPurchases = require('../services/boulderPurchases');
 
 router.get('/', async function(req, res, next) {
   try {
-    res.json(await boulderPurchases.getAll());
+    res.json(await boulderPurchases.getAll(req.query.page));
     console.log(req);
   } catch (err) {
     console.error(`Error while getting the digital payments `, err.message);
