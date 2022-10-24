@@ -49,7 +49,7 @@ router.get('/by-date/date=:date', async function(req, res, next) {
 /* SEARCH by user && date */
 router.get('/by-user-date/user_id=:user_id&date=:date', async function(req, res, next) {
     try {
-      res.json(await digitalPayments.searchByUserAndDate(req.params.user_id, req.params.date));
+      res.json(await digitalPayments.searchByUserAndDate(req.params.user_id, req.params.date, req.query.page));
       console.log(req);
     } catch (err) {
       console.error(`Error getting the data `, err.message);
