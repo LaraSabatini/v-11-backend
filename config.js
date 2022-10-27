@@ -1,9 +1,11 @@
+require('dotenv').config();
+
 const config = {
   db: {
-    host: "mysql-tester-database.alwaysdata.net",
-    user: "271839_v11",
-    password: "v11escalada",
-    database: "tester-database_v11",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB,
   },
   listPerPage: 25,
 };
