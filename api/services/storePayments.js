@@ -40,8 +40,8 @@ async function getByDateAndPaymentMethodAndProduct(date, product, payment){
 
 async function create(productPurchase){
   const result = await db.query(
-    `INSERT INTO store_payments(product_id, product_name, amount_of_items, profit, payment_method_id, date)
-    VALUES ('${productPurchase.product_id}','${productPurchase.product_name}', '${productPurchase.amount_of_items}', '${productPurchase.profit}', '${productPurchase.payment_method_id}', '${productPurchase.date}')`
+    `INSERT INTO store_payments(product_id, product_name, amount_of_items, profit, payment_method_id, date, created_by)
+    VALUES ('${productPurchase.product_id}','${productPurchase.product_name}', '${productPurchase.amount_of_items}', '${productPurchase.profit}', '${productPurchase.payment_method_id}', '${productPurchase.date}', '${productPurchase.created_by}')`
   );
 
   let message = 'Error in creating productPurchase';
@@ -55,7 +55,7 @@ async function create(productPurchase){
 
 async function update(id, productPurchase){
   const result = await db.query(
-    `UPDATE store_payments SET id='${productPurchase.id}',product_id='${productPurchase.product_id}',product_name='${productPurchase.product_name}',amount_of_items='${productPurchase.amount_of_items}',profit='${productPurchase.profit}',payment_method_id='${productPurchase.payment_method_id}',date='${productPurchase.date}' WHERE id='${id}'`
+    `UPDATE store_payments SET id='${productPurchase.id}',product_id='${productPurchase.product_id}',product_name='${productPurchase.product_name}',amount_of_items='${productPurchase.amount_of_items}',profit='${productPurchase.profit}',payment_method_id='${productPurchase.payment_method_id}',date='${productPurchase.date}', created_by='${productPurchase.created_by}' WHERE id='${id}'`
   );
 
   let message = 'Error in updating store_payments';
