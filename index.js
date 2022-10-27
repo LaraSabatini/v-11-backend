@@ -42,120 +42,120 @@ app.get("/", (req, res) => {
 
 app.use("/users", usersRouter);
 /* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message});
-  return;
-});
+// app.use((err, req, res, next) => {
+//   const statusCode = err.statusCode || 500;
+//   console.error(err.message, err.stack);
+//   res.status(statusCode).json({ message: err.message});
+//   return;
+// });
 
 app.use("/partners", partnersRouter);
 /* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message});
-  return;
-});
+// app.use((err, req, res, next) => {
+//   const statusCode = err.statusCode || 500;
+//   console.error(err.message, err.stack);
+//   res.status(statusCode).json({ message: err.message});
+//   return;
+// });
 
 app.use("/trainers", trainersRouter);
 /* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message});
-  return;
-});
+// app.use((err, req, res, next) => {
+//   const statusCode = err.statusCode || 500;
+//   console.error(err.message, err.stack);
+//   res.status(statusCode).json({ message: err.message});
+//   return;
+// });
 
 app.use("/products", productsRouter);
 /* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message});
-  return;
-});
+// app.use((err, req, res, next) => {
+//   const statusCode = err.statusCode || 500;
+//   console.error(err.message, err.stack);
+//   res.status(statusCode).json({ message: err.message});
+//   return;
+// });
 
 app.use("/categories", categoriesRouter);
 /* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message});
-  return;
-});
+// app.use((err, req, res, next) => {
+//   const statusCode = err.statusCode || 500;
+//   console.error(err.message, err.stack);
+//   res.status(statusCode).json({ message: err.message});
+//   return;
+// });
 
 app.use("/brands", brandsRouter);
 /* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message});
-  return;
-});
+// app.use((err, req, res, next) => {
+//   const statusCode = err.statusCode || 500;
+//   console.error(err.message, err.stack);
+//   res.status(statusCode).json({ message: err.message});
+//   return;
+// });
 
 app.use("/prices", pricesRouter);
 /* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message});
-  return;
-});
+// app.use((err, req, res, next) => {
+//   const statusCode = err.statusCode || 500;
+//   console.error(err.message, err.stack);
+//   res.status(statusCode).json({ message: err.message});
+//   return;
+// });
 
 app.use("/combos", combosRouter);
 /* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message});
-  return;
-});
+// app.use((err, req, res, next) => {
+//   const statusCode = err.statusCode || 500;
+//   console.error(err.message, err.stack);
+//   res.status(statusCode).json({ message: err.message});
+//   return;
+// });
 
 app.use("/partnersPayment", partnersPaymentRouter);
 /* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message});
-  return;
-});
+// app.use((err, req, res, next) => {
+//   const statusCode = err.statusCode || 500;
+//   console.error(err.message, err.stack);
+//   res.status(statusCode).json({ message: err.message});
+//   return;
+// });
 
 app.use("/digitalPayments", digitalPaymentsRouter);
 /* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message});
-  return;
-});
+// app.use((err, req, res, next) => {
+//   const statusCode = err.statusCode || 500;
+//   console.error(err.message, err.stack);
+//   res.status(statusCode).json({ message: err.message});
+//   return;
+// });
 
 app.use("/storePayments", storePaymentsRouter);
 /* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message});
-  return;
-});
+// app.use((err, req, res, next) => {
+//   const statusCode = err.statusCode || 500;
+//   console.error(err.message, err.stack);
+//   res.status(statusCode).json({ message: err.message});
+//   return;
+// });
 
 app.use("/boulderPurchases", boulderPurchasesRouter);
 /* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message});
-  return;
-});
+// app.use((err, req, res, next) => {
+//   const statusCode = err.statusCode || 500;
+//   console.error(err.message, err.stack);
+//   res.status(statusCode).json({ message: err.message});
+//   return;
+// });
 
 app.use("/workingHours", workingHoursRouter);
 /* Error handler middleware */
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message});
-  return;
-});
+// app.use((err, req, res, next) => {
+//   const statusCode = err.statusCode || 500;
+//   console.error(err.message, err.stack);
+//   res.status(statusCode).json({ message: err.message});
+//   return;
+// });
 
 app.use("/lessonsPurchased", lessonsPurchasedRouter);
 /* Error handler middleware */
