@@ -1,9 +1,9 @@
 const config = {
   db: {
-    host: "vonceescalada.com",
-    user: "u611741292_lara_sabatini",
-    password: "v11Escalada!",
-    database: "u611741292_v_11",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB,
   },
   listPerPage: 25,
 };
