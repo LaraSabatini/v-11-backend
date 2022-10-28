@@ -32,8 +32,8 @@ async function getByWeek(weekId, page = 1){
 
 async function create(workingHour){
   const result = await db.query(
-    `INSERT INTO working_hours(date, user_id, user_name, working_hours_range, amount_of_hours_worked, week_id)
-    VALUES ('${workingHour.date}','${workingHour.user_id}', '${workingHour.user_name}', '${workingHour.working_hours_range}', '${workingHour.amount_of_hours_worked}', '${workingHour.week_id}')`
+    `INSERT INTO working_hours(date, user_id, user_name, working_hours_range, amount_of_hours_worked, week_id, created_by)
+    VALUES ('${workingHour.date}','${workingHour.user_id}', '${workingHour.user_name}', '${workingHour.working_hours_range}', '${workingHour.amount_of_hours_worked}', '${workingHour.week_id}', '${workingHour.created_by}')`
   );
 
   let message = 'Error in creating working hour';
@@ -47,7 +47,7 @@ async function create(workingHour){
 
 async function update(id, workingHour){
   const result = await db.query(
-    `UPDATE working_hours SET id='${workingHour.id}',date='${workingHour.date}',user_id='${workingHour.user_id}',user_name='${workingHour.user_name}',working_hours_range='${workingHour.working_hours_range}',amount_of_hours_worked='${workingHour.amount_of_hours_worked}',week_id='${workingHour.week_id}' WHERE id='${id}'`
+    `UPDATE working_hours SET id='${workingHour.id}',date='${workingHour.date}',user_id='${workingHour.user_id}',user_name='${workingHour.user_name}',working_hours_range='${workingHour.working_hours_range}',amount_of_hours_worked='${workingHour.amount_of_hours_worked}',week_id='${workingHour.week_id}', created_by='${workingHour.created_by}' WHERE id='${id}'`
   );
 
   let message = 'Error in updating working hours';

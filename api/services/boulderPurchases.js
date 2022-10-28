@@ -38,8 +38,8 @@ async function searchPurchasesByDate(value, page = 1){
 
 async function create(bouderPayment){
     const result = await db.query(
-      `INSERT INTO boulder_purchases(id, date, item_id, item_name, amount_of_items, profit, payment_method_id)
-      VALUES ('${bouderPayment.id}','${bouderPayment.date}', '${bouderPayment.item_id}', '${bouderPayment.item_name}', '${bouderPayment.amount_of_items}', '${bouderPayment.profit}', '${bouderPayment.payment_method_id}')`
+      `INSERT INTO boulder_purchases(id, date, item_id, item_name, amount_of_items, profit, payment_method_id, created_by)
+      VALUES ('${bouderPayment.id}','${bouderPayment.date}', '${bouderPayment.item_id}', '${bouderPayment.item_name}', '${bouderPayment.amount_of_items}', '${bouderPayment.profit}', '${bouderPayment.payment_method_id}', '${bouderPayment.created_by}')`
     );
   
     let message = 'Error in creating bouderPayment';
