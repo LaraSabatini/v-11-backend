@@ -1,0 +1,7 @@
+.env
+
+.github
+
+/node_modules
+/.pnp
+.pnp.js
