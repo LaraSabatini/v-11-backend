@@ -1,7 +1,8 @@
+require('dotenv').config();
 const { MailtrapClient } = require("mailtrap");
 
-const TOKEN = "2e07812876b4875ee5475bdb3fc252dd";
-const ENDPOINT = "https://send.api.mailtrap.io/";
+const TOKEN = process.env.MAIL_TOKEN;
+const ENDPOINT = process.env.MAIL_ENDPOINT;
 
 const client = new MailtrapClient({ endpoint: ENDPOINT, token: TOKEN });
 
