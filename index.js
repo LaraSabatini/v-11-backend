@@ -16,7 +16,7 @@ const pricesRouter = require("./api/routes/prices");
 const combosRouter = require("./api/routes/combos")
 const lessonsPurchasedRouter = require("./api/routes/lessonsPurchased")
 const workingHoursRouter = require("./api/routes/workingHours")
-const sendEmailRouter = require("./api/routes/sendEmail")
+const annotationsRouter = require("./api/routes/annotations")
 
 app.use(express.json());
 app.use(
@@ -50,7 +50,7 @@ app.use("/storePayments", storePaymentsRouter);
 app.use("/boulderPurchases", boulderPurchasesRouter);
 app.use("/workingHours", workingHoursRouter);
 app.use("/lessonsPurchased", lessonsPurchasedRouter);
-app.use("/sendEmail", sendEmailRouter);
+app.use("/annotations", annotationsRouter);
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
