@@ -20,9 +20,12 @@ async function getToDos(page = 1){
      const offset = helper.getOffset(page, config.listPerPage);
      const rows = await db.query(
        `SELECT * FROM annotations WHERE type LIKE '%${todo}%' LIMIT ${offset},${config.listPerPage}`
-     )
+     );
+     const amountOfPages = await db.query(
+      `SELECT COUNT(*) FROM annotations WHERE type LIKE '${todo}'`
+    );
      const data = helper.emptyOrRows(rows);
-     const meta = {page};
+     const meta = {page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25)};
 
      return {
          data,
@@ -34,9 +37,12 @@ async function getToDosByDone(page = 1, done){
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
       `SELECT * FROM annotations WHERE type LIKE '%${todo}%' AND done = '${done}' LIMIT ${offset},${config.listPerPage}`
-    )
+    );
+    const amountOfPages = await db.query(
+      `SELECT COUNT(*) FROM annotations WHERE type LIKE '${todo}' AND done = '${done}'`
+    );
     const data = helper.emptyOrRows(rows);
-    const meta = {page};
+    const meta = {page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25)};
 
     return {
         data,
@@ -49,8 +55,11 @@ async function getNotes(page = 1, order){
      const rows = await db.query(
        `SELECT * FROM annotations WHERE type LIKE '%${note}%' ORDER BY id ${order} LIMIT ${offset},${config.listPerPage}`
      )
+     const amountOfPages = await db.query(
+      `SELECT COUNT(*) FROM annotations WHERE type LIKE '${note}'`
+     );
      const data = helper.emptyOrRows(rows);
-     const meta = {page};
+     const meta = {page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25)};
 
      return {
          data,
@@ -62,9 +71,12 @@ async function getNotesByDate(page = 1, date){
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
     `SELECT * FROM annotations WHERE type LIKE '%${note}%' AND creation_date LIKE '%${date}%' LIMIT ${offset},${config.listPerPage}`
-  )
+  );
+  const amountOfPages = await db.query(
+    `SELECT COUNT(*) FROM annotations WHERE type LIKE '${note}' AND creation_date LIKE '%${date}%'`
+  );
   const data = helper.emptyOrRows(rows);
-  const meta = {page};
+  const meta = {page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25)};
 
   return {
       data,
