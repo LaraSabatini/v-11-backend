@@ -44,7 +44,7 @@ async function getToDosByDone(page = 1, done){
     }
 };
 
- async function getNotes(page = 1, order){
+async function getNotes(page = 1, order){
      const offset = helper.getOffset(page, config.listPerPage);
      const rows = await db.query(
        `SELECT * FROM annotations WHERE type LIKE '%${note}%' ORDER BY id ${order} LIMIT ${offset},${config.listPerPage}`
@@ -56,6 +56,20 @@ async function getToDosByDone(page = 1, done){
          data,
          meta
      }
+};
+
+async function getNotesByDate(page = 1, date){
+  const offset = helper.getOffset(page, config.listPerPage);
+  const rows = await db.query(
+    `SELECT * FROM annotations WHERE type LIKE '%${note}%' AND creation_date LIKE '%${date}%' LIMIT ${offset},${config.listPerPage}`
+  )
+  const data = helper.emptyOrRows(rows);
+  const meta = {page};
+
+  return {
+      data,
+      meta
+  }
 };
 
 async function create(annotation){
@@ -108,5 +122,6 @@ module.exports = {
     create,
     deleteAnnotation,
     update,
-    getToDosByDone
+    getToDosByDone,
+    getNotesByDate
 }

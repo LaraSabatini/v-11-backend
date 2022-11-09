@@ -42,6 +42,16 @@ router.get('/notes/order=:order', async function(req, res, next) {
     }
 });
 
+router.get('/notes/date=:date', async function(req, res, next) {
+  try {
+    res.json(await annotations.getNotesByDate(req.query.page, req.params.date));
+    console.log(req);
+  } catch (err) {
+    console.error(`Error while getting the notes`, err.message);
+    next(err);
+  }
+});
+
 router.post('/', async function(req, res, next) {
     try {
       res.json(await annotations.create(req.body));
