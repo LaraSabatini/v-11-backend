@@ -14,7 +14,7 @@ router.get('/', async function(req, res, next) {
 
 router.get('/todos/done=:done', async function(req, res, next) {
   try {
-    res.json(await annotations.getToDosByDone(req.params.done, req.query.page));
+    res.json(await annotations.getToDosByDone(req.query.page, req.params.done));
     console.log(req);
   } catch (err) {
     console.error(`Error while getting the annotations `, err.message);
