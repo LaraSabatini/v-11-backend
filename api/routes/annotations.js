@@ -14,7 +14,7 @@ router.get('/', async function(req, res, next) {
 
 router.get('/todos/done=:done', async function(req, res, next) {
   try {
-    res.json(await annotations.getToDosByDone(req.query.page, req.params.done));
+    res.json(await annotations.getToDosByDone(req.params.done, req.query.page));
     console.log(req);
   } catch (err) {
     console.error(`Error while getting the annotations `, err.message);
@@ -34,7 +34,7 @@ router.get('/todos', async function(req, res, next) {
 
 router.get('/notes/order=:order', async function(req, res, next) {
     try {
-      res.json(await annotations.getNotes(req.query.page, req.params.order));
+      res.json(await annotations.getNotes(req.params.order, req.query.page));
       console.log(req);
     } catch (err) {
       console.error(`Error while getting the notes `, err.message);
@@ -44,7 +44,7 @@ router.get('/notes/order=:order', async function(req, res, next) {
 
 router.get('/notes/date=:date', async function(req, res, next) {
   try {
-    res.json(await annotations.getNotesByDate(req.query.page, req.params.date));
+    res.json(await annotations.getNotesByDate(req.params.date, req.query.page,));
     console.log(req);
   } catch (err) {
     console.error(`Error while getting the notes`, err.message);
