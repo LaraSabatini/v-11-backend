@@ -40,4 +40,14 @@ router.put('/:id', async function(req, res, next) {
     }
 });
 
+router.get('/boulder-earnings/date=:date', async function(req, res, next) {
+  try {
+    res.json(await closedTill.getEarningsBoulder(req.params.date, req.query.page));
+    console.log(req);
+  } catch (err) {
+    console.error(`Error while getting the boulder earnings `, err.message);
+    next(err);
+  }
+});
+
 module.exports = router;
