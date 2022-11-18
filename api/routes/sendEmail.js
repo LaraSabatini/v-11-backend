@@ -18,7 +18,7 @@ router.post('/', async function(req, res) {
         from: "info@vonceescalada.com",
         to: req.body.recipients,
         subject: req.body.subject,
-        text: req.body.text
+        html: req.body.text
     }
 
     transporter.sendMail(mailOptions, (error, info) => {
