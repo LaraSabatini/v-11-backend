@@ -71,7 +71,6 @@ async function getEarningsBoulder(date){
     FROM store_payments
     WHERE date LIKE '${date}'`
   );
-  // estructurar data
   // STORE
   let boulderCash = 0
   let boulderMp = 0
