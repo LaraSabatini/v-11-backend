@@ -56,7 +56,7 @@ router.post('/close-till', async function(req, res) {
             month: req.body.data.month,
             amountOfPeople: req.body.data.amountOfPeople,
             user: req.body.data.user,
-            hours: req.body.data.hour,
+            hour: req.body.data.hour,
         }
     }
 
