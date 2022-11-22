@@ -13,15 +13,4 @@ router.post('/create-partner', async function(req, res, next) {
     }
 });
 
-router.post('/update-partner-payment', async function(req, res, next) {
-    try {
-      res.json(await businessLogic.updatePartnerPayment(req.body.boulderPayment, req.body.partnerPayment));
-    } catch (err) {
-        const response = {
-            status: 500,
-        }
-        res.status(500).json(response)
-    }
-});
-
 module.exports = router;

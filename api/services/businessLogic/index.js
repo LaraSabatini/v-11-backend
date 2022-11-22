@@ -38,38 +38,6 @@ async function createPartner(partner, partnerPayment, boulderPayment){
 	return {message};
 }
 
-async function updatePartnerPayment(boulderPayment, partnerPayment){
-	 const createPartnerPaymentResult = await db.query(
-     `INSERT INTO partner_payments(partner_id, partner_name, partner_last_name, combo, time_paid, time_paid_unit, payment_method_id, payment_method_name,
-	 		price_paid, date, payment_expire_date, created_by)
-     VALUES ('${partnerPayment.partner_id}','${partnerPayment.partner_name}', '${partnerPayment.partner_last_name}', '${partnerPayment.combo}',
-	 '${partnerPayment.time_paid}', '${partnerPayment.time_paid_unit}', '${partnerPayment.payment_method_id}',
-	 '${partnerPayment.payment_method_name}', '${partnerPayment.price_paid}', 
-	 '${boulderPayment.date}', '${partnerPayment.payment_expire_date}', '${boulderPayment.created_by}')`
-   );
-
-	 const createBoulderPurchaseResult = await db.query(
-	 	`INSERT INTO boulder_purchases(id, date, item_id, item_name, amount_of_items, profit, payment_method_id, created_by)
-	 	VALUES ('${boulderPayment.id}','${boulderPayment.date}', '${boulderPayment.item_id}', '${boulderPayment.item_name}',
-		'${boulderPayment.amount_of_items}', '${partnerPayment.price_paid}', '${partnerPayment.payment_method_id}', '${boulderPayment.created_by}')`
-	 );
-
-	let message = {
-		message: errorMessage.updatePartnerPayment,
-		status: 500
-	}
-
-	if (createPartnerPaymentResult.affectedRows && createBoulderPurchaseResult.affectedRows) {
-		message = {
-			message: successMessage.updatePartnerPayment,
-			status: 200
-		};
-	}
-
-	return {message};
-}
-
 module.exports = {
     createPartner,
-	updatePartnerPayment
 }
