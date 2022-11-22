@@ -1,13 +1,13 @@
 {
     "createPartner": {
         "title": "UPS!",
-        "description": "Ha ocurrido un error al crear el socio, por favor intentalo nuevamente o comunicate con el administrador.",
+        "content": "Ha ocurrido un error al crear el socio, por favor intentalo nuevamente o comunicate con el administrador.",
         "status": "alert",
         "icon": "IconExclamation"
     },
     "updatePartnerPayment": {
         "title": "UPS!",
-        "description": "Ha ocurrido un error al registrar el pago, por favor intentalo nuevamente o comunicate con el administrador.",
+        "content": "Ha ocurrido un error al registrar el pago, por favor intentalo nuevamente o comunicate con el administrador.",
         "status": "alert",
         "icon": "IconExclamation"
     }
