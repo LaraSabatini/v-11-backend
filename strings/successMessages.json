@@ -1,13 +1,13 @@
 {
     "createPartner": {
         "title": "¡Excelente!",
-        "description": "El socio ha sido creado exitosamente.",
+        "content": "El socio ha sido creado exitosamente.",
         "status": "success",
         "icon": "IconCheckModal"
     },
     "updatePartnerPayment": {
         "title": "¡Excelente!",
-        "description": "El el pago se ha registrado exitosamente.",
+        "content": "El el pago se ha registrado exitosamente.",
         "status": "success",
         "icon": "IconCheckModal"
     }
