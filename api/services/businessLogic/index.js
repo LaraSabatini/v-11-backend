@@ -20,7 +20,7 @@ async function createPartner(partner, partnerPayment, boulderPayment){
 	 const createBoulderPurchaseResult = await db.query(
 	 	`INSERT INTO boulder_purchases(id, date, item_id, item_name, amount_of_items, profit, payment_method_id, created_by)
 	 	VALUES ('${boulderPayment.id}','${partner.membership_start_date}', '${boulderPayment.item_id}', '${boulderPayment.item_name}', '${boulderPayment.amount_of_items}', 
-	 	'${boulderPayment.profit}', '${partnerPayment.payment_method_id}', '${partner.created_by}')`
+	 	'${boulderPayment.price_paid}', '${partnerPayment.payment_method_id}', '${partner.created_by}')`
 	 );
 
 	let message = {
