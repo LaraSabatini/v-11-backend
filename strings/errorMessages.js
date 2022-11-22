@@ -71,6 +71,12 @@ const errorResponses ={
         "status": status,
         "icon": icon
     },
+    "search": {
+        "title": title,
+        "content": `${firstContent} ejecutar la busqueda${secondContent}`,
+        "status": status,
+        "icon": icon
+    },
 }
 
 export default errorResponses

@@ -8,8 +8,12 @@ router.get('/', async function(req, res, next) {
     res.json(await partnersPayment.getMultiple(req.query.page));
     console.log(req);
   } catch (err) {
-    console.error(`Error while getting the store data `, err.message);
     next(err);
+        const response = {
+            status: 500,
+		    message: errorResponses.search,
+        }
+        res.status(500).json(response)
   }
 });
 
@@ -19,8 +23,12 @@ router.get('/:value', async function(req, res, next) {
       res.json(await partnersPayment.searchPurchasesByPartner(req.params.value, req.query.page));
       console.log(req);
     } catch (err) {
-      console.error(`Error while getting search `, err.message);
       next(err);
+        const response = {
+            status: 500,
+		    message: errorResponses.search,
+        }
+        res.status(500).json(response)
     }
 });
 
@@ -30,8 +38,12 @@ router.get('/date/:value', async function(req, res, next) {
     res.json(await partnersPayment.searchPurchasesByDate(req.params.value, req.query.page));
     console.log(req);
   } catch (err) {
-    console.error(`Error while getting search `, err.message);
     next(err);
+        const response = {
+            status: 500,
+		    message: errorResponses.search,
+        }
+        res.status(500).json(response)
   }
 });
 
@@ -41,8 +53,12 @@ router.get('/cards/:date', async function(req, res, next) {
     res.json(await partnersPayment.getEarningsByDate(req.params.date));
     console.log(req);
   } catch (err) {
-    console.error(`Error while getting search `, err.message);
     next(err);
+        const response = {
+            status: 500,
+		    message: errorResponses.search,
+        }
+        res.status(500).json(response)
   }
 });
 
@@ -52,8 +68,12 @@ router.get('/payment_by_partner_id/:value', async function(req, res, next) {
     res.json(await partnersPayment.getPurchaseByPartnerId(req.params.value));
     console.log(req);
   } catch (err) {
-    console.error(`Error while getting search `, err.message);
     next(err);
+        const response = {
+            status: 500,
+		    message: errorResponses.search,
+        }
+        res.status(500).json(response)
   }
 });
 
@@ -62,8 +82,12 @@ router.post('/', async function(req, res, next) {
   try {
     res.json(await partnersPayment.create(req.body));
   } catch (err) {
-    console.error(`Error while creating product`, err.message);
     next(err);
+        const response = {
+            status: 500,
+		    message: errorResponses.updatePartnerPayment,
+        }
+        res.status(500).json(response)
   }
 });
 
@@ -72,8 +96,12 @@ router.put('/:id', async function(req, res, next) {
   try {
     res.json(await partnersPayment.update(req.params.id, req.body));
   } catch (err) {
-    console.error(`Error while updating payment`, err.message);
     next(err);
+    const response = {
+        status: 500,
+    message: errorResponses.updatePartnerPayment,
+    }
+    res.status(500).json(response)
   }
 });
 

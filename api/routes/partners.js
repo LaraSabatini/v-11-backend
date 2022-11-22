@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const partners = require('../services/partners');
+const errorResponses = require('../../../strings/errorMessages');
 
 /* GET partners */
 router.get('/', async function(req, res, next) {
@@ -8,8 +9,12 @@ router.get('/', async function(req, res, next) {
     res.json(await partners.getMultiple(req.query.page));
     console.log(req);
   } catch (err) {
-    console.error(`Error while getting the partners `, err.message);
     next(err);
+    const response = {
+        status: 500,
+        message: errorResponses.search,
+    }
+    res.status(500).json(response)
   }
 });
 
@@ -19,8 +24,12 @@ router.get('/:value', async function(req, res, next) {
       res.json(await partners.searchPartner(req.params.value, req.query.page));
       console.log(req);
     } catch (err) {
-      console.error(`Error while getting search `, err.message);
       next(err);
+    const response = {
+        status: 500,
+        message: errorResponses.search,
+    }
+    res.status(500).json(response)
     }
 });
 
@@ -30,8 +39,12 @@ router.get('/by-id/:value', async function(req, res, next) {
     res.json(await partners.getPartnerById(req.params.value));
     console.log(req);
   } catch (err) {
-    console.error(`Error while getting search `, err.message);
     next(err);
+    const response = {
+        status: 500,
+        message: errorResponses.search,
+    }
+    res.status(500).json(response)
   }
 });
 
@@ -41,8 +54,12 @@ router.get('/students/:value', async function(req, res, next) {
     res.json(await partners.filterStudents(req.params.value, req.query.page));
     console.log(req);
   } catch (err) {
-    console.error(`Error while getting the partners `, err.message);
     next(err);
+    const response = {
+        status: 500,
+        message: errorResponses.search,
+    }
+    res.status(500).json(response)
   }
 });
 
@@ -52,8 +69,12 @@ router.get('/free-pass/:value', async function(req, res, next) {
     res.json(await partners.filterFreePass(req.params.value, req.query.page));
     console.log(req);
   } catch (err) {
-    console.error(`Error while getting the partners `, err.message);
     next(err);
+    const response = {
+        status: 500,
+        message: errorResponses.search,
+    }
+    res.status(500).json(response)
   }
 });
 
@@ -62,8 +83,12 @@ router.post('/', async function(req, res, next) {
   try {
     res.json(await partners.create(req.body));
   } catch (err) {
-    console.error(`Error while creating partner`, err.message);
     next(err);
+    const response = {
+        status: 500,
+        message: errorResponses.createPartner,
+    }
+    res.status(500).json(response)
   }
 });
 
@@ -72,8 +97,12 @@ router.put('/:id', async function(req, res, next) {
   try {
     res.json(await partners.update(req.params.id, req.body));
   } catch (err) {
-    console.error(`Error while updating partner`, err.message);
     next(err);
+    const response = {
+        status: 500,
+        message: errorResponses.editPartner,
+    }
+    res.status(500).json(response)
   }
 });
 
@@ -82,8 +111,12 @@ router.delete('/:id', async function(req, res, next) {
   try {
     res.json(await partners.removePartner(req.params.id));
   } catch (err) {
-    console.error(`Error while deleting product`, err.message);
     next(err);
+    const response = {
+        status: 500,
+        message: errorResponses.deletePartner,
+    }
+    res.status(500).json(response)
   }
 });
 
