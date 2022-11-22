@@ -1,6 +1,8 @@
 const db = require('./db');
 const helper = require('../../helper');
 const config = require('../../config');
+const successResponses = require('../../../strings/successMessages.js');
+const errorResponses = require('../../../strings/errorMessages.js');
 
 async function getAll(page=1){
   const offset = helper.getOffset(page, config.listPerPage);
@@ -42,10 +44,16 @@ async function create(bouderPayment){
       VALUES ('${bouderPayment.id}','${bouderPayment.date}', '${bouderPayment.item_id}', '${bouderPayment.item_name}', '${bouderPayment.amount_of_items}', '${bouderPayment.profit}', '${bouderPayment.payment_method_id}', '${bouderPayment.created_by}')`
     );
   
-    let message = 'Error in creating bouderPayment';
+    let message = {
+      status: 500,
+      message: errorResponses.createBoulderPurcase
+    }
   
     if (result.affectedRows) {
-      message = 'bouderPayment created successfully';
+      message = {
+        status: 200,
+        message: successResponses.createBoulderPurcase
+      }
     }
   
     return {message};

@@ -1,6 +1,8 @@
 const db = require('./db');
 const helper = require('../../helper');
 const config = require('../../config');
+const successResponses = require('../../../strings/successMessages.js');
+const errorResponses = require('../../../strings/errorMessages.js');
 
 async function getMultiple(page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
@@ -64,10 +66,16 @@ async function create(partnerPayment){
     VALUES ('${partnerPayment.partner_id}','${partnerPayment.partner_name}', '${partnerPayment.partner_last_name}', '${partnerPayment.combo}', '${partnerPayment.time_paid}', '${partnerPayment.time_paid_unit}', '${partnerPayment.payment_method_id}', '${partnerPayment.payment_method_name}', '${partnerPayment.price_paid}', '${partnerPayment.date}', '${partnerPayment.payment_expire_date}', '${partnerPayment.created_by}')`
   );
 
-  let message = 'Error in creating partnerPayment';
+  let message = {
+    status: 500,
+    message: errorResponses.updatePartnerPayment
+  }
 
   if (result.affectedRows) {
-    message = 'partnerPayment created successfully';
+    message = {
+      status: 200,
+      message: successResponses.updatePartnerPayment
+    }
   }
 
   return {message};
@@ -78,10 +86,16 @@ async function update(id, partnerPayment){
     `UPDATE partner_payments SET id='${partnerPayment.id}',partner_id='${partnerPayment.partner_id}',partner_name='${partnerPayment.partner_name}',partner_last_name='${partnerPayment.partner_last_name}',combo='${partnerPayment.combo}',time_paid='${partnerPayment.time_paid}',time_paid_unit='${partnerPayment.time_paid_unit}', payment_method_id='${partnerPayment.payment_method_id}', payment_method_name='${partnerPayment.payment_method_name}', price_paid='${partnerPayment.price_paid}', date='${partnerPayment.date}', payment_expire_date='${partnerPayment.payment_expire_date}', created_by='${partnerPayment.created_by}' WHERE id='${id}'`
   );
 
-  let message = 'Error in updating payment';
+  let message = {
+    status: 500,
+    message: errorResponses.updatePartnerPayment
+  }
 
   if (result.affectedRows) {
-    message = 'payment updated successfully';
+    message = {
+      status: 200,
+      message: successResponses.updatePartnerPayment
+    }
   }
 
   return {message};

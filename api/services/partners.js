@@ -1,6 +1,8 @@
 const db = require('./db');
 const helper = require('../../helper');
 const config = require('../../config');
+const successResponses = require('../../../strings/successMessages.js');
+const errorResponses = require('../../../strings/errorMessages.js');
 
 async function getMultiple(page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
@@ -73,11 +75,17 @@ async function create(partner){
     VALUES ('${partner.name}','${partner.last_name}', '${partner.identification_number}', '${partner.birth_date}', '${partner.email}', '${partner.phone}', '${partner.membership_start_date}', '${partner.created_by}', '${partner.free_pass}', '${partner.subs}', '${partner.is_student}')`
   );
 
-  let message = 'Error in creating partner';
+  let message = {
+    status: 500,
+    message: errorResponses.createPartner
+  }
 
   if (result.affectedRows) {
-    message = 'partner created successfully';
-    partnerId = result.insertId
+    message = {
+      status: 200,
+      message: successResponses.createPartner,
+      partnerId: result.insertId
+    }
   }
 
   return {message, partnerId};
@@ -88,10 +96,16 @@ async function update(id, partner){
     `UPDATE partners SET id='${partner.id}',name='${partner.name}',last_name='${partner.last_name}',identification_number='${partner.identification_number}',birth_date='${partner.birth_date}',email='${partner.email}',phone='${partner.phone}',membership_start_date='${partner.membership_start_date}',created_by='${partner.created_by}',free_pass='${partner.free_pass}',is_student='${partner.is_student}',subs='${partner.subs}' WHERE id='${id}'`
   );
 
-  let message = 'Error in updating partner';
+  let message = {
+    status: 500,
+    message: errorResponses.editPartner
+  }
 
   if (result.affectedRows) {
-    message = 'partner updated successfully';
+    message = {
+      status: 200,
+      message: successResponses.editPartner,
+    }
   }
 
   return {message};
@@ -102,10 +116,16 @@ async function removePartner(id){
     `DELETE FROM partners WHERE id=${id}`
   );
 
-  let message = 'Error in deleting product';
+  let message = {
+    status: 500,
+    message: errorResponses.deletePartner
+  }
 
   if (result.affectedRows) {
-    message = 'Product deleted successfully';
+    message = {
+      status: 200,
+      message: successResponses.deletePartner,
+    }
   }
 
   return {message};

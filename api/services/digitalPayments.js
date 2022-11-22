@@ -1,8 +1,9 @@
 const db = require('./db');
 const helper = require('../../helper');
 const config = require('../../config');
+const successResponses = require('../../../strings/successMessages.js');
+const errorResponses = require('../../../strings/errorMessages.js');
 
-// get all
 async function getAll(page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
@@ -20,7 +21,6 @@ async function getAll(page = 1){
   }
 };
 
-// buscar x user_id && date
 async function searchByUserAndDate(user_id, date, page=1){
   const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
@@ -35,7 +35,6 @@ async function searchByUserAndDate(user_id, date, page=1){
     }
 };
 
-// buscar x user_id
 async function searchByUser(user_id, page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
@@ -53,7 +52,6 @@ async function searchByUser(user_id, page = 1){
     }
 };
 
-// buscar x mes
 async function searchByMonth(month_id, page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
@@ -71,7 +69,6 @@ async function searchByMonth(month_id, page = 1){
     }
 };
 
-// buscar x fecha
 async function searchByDate(date){
     const rows = await db.query(
       `SELECT * FROM digital_payments WHERE date LIKE '%${date}%'`
@@ -83,17 +80,22 @@ async function searchByDate(date){
     }
 };
 
-// crear
 async function createDigitalPayment(payment){
   const result = await db.query(
     `INSERT INTO digital_payments(user_id, user_name, date, month, month_id, total_profit, created_by)
     VALUES ('${payment.user_id}', '${payment.user_name}', '${payment.date}', '${payment.month}', '${payment.month_id}', '${payment.total_profit}', '${payment.created_by}')`
   );
 
-  let message = 'Error in creating payment';
+  let message = {
+    stauts: 500,
+    message: errorResponses.createDigitalPayment
+  }
 
   if (result.affectedRows) {
-    message = 'payment created successfully';
+    message = {
+      stauts: 200,
+      message: successResponses.createDigitalPayment
+    }
   }
 
   return {message};
@@ -104,10 +106,16 @@ async function updateDigitalPayment(id, payment){
     `UPDATE digital_payments SET id='${payment.id}',user_id='${payment.user_id}',user_name='${payment.user_name}',date='${payment.date}',month='${payment.month}',month_id='${payment.month_id}',total_profit='${payment.total_profit}', created_by='${payment.created_by}' WHERE id='${id}'`
   );
 
-  let message = 'Error in updating payment';
+  let message = {
+    stauts: 500,
+    message: errorResponses.createDigitalPayment
+  }
 
   if (result.affectedRows) {
-    message = 'payment updated successfully';
+    message = {
+      stauts: 200,
+      message: successResponses.createDigitalPayment
+    }
   }
 
   return {message};

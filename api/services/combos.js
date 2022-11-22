@@ -1,6 +1,9 @@
 const db = require('./db');
 const helper = require('../../helper');
 const config = require('../../config');
+const successResponses = require('../../../strings/successMessages.js');
+const errorResponses = require('../../../strings/errorMessages.js');
+
 
 async function getMultiple(page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
@@ -22,10 +25,16 @@ async function update(id, combo){
       `UPDATE combos SET id='${combo.id}',name='${combo.name}',price_cash='${combo.price_cash}',price_mp='${combo.price_mp}', description='${combo.description}' WHERE id='${id}'`
     );
   
-    let message = 'Error in updating combo';
+    let message = {
+      message: errorResponses.editCombo,
+      status: 500
+    };
   
     if (result.affectedRows) {
-      message = 'combo updated successfully';
+      message = {
+        message: successResponses.editCombo,
+        status: 200
+      };
     }
   
     return {message};

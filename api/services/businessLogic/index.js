@@ -1,6 +1,6 @@
 const db = require('../db');
-const successMessage = require('../../../strings/successMessages.json')
-const errorMessage = require('../../../strings/errorMessages.json')
+const successResponses = require('../../../strings/successMessages.js')
+const errorResponses = require('../../../strings/errorMessages.js')
 
 async function createPartner(partner, partnerPayment, boulderPayment){
 	const createPartnerResult = await db.query(
@@ -24,13 +24,13 @@ async function createPartner(partner, partnerPayment, boulderPayment){
 	 );
 
 	let message = {
-		message: errorMessage.createPartner,
+		message: errorResponses.createPartner,
 		status: 500
 	}
 
 	if (createPartnerResult.affectedRows && createPartnerPaymentResult.affectedRows && createBoulderPurchaseResult.affectedRows) {
 		message = {
-			message: successMessage.createPartner,
+			message: successResponses.createPartner,
 			status: 200
 		};
 	}
