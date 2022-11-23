@@ -25,7 +25,7 @@ async function getToDos(page = 1) {
     'SELECT COUNT(*) FROM annotations WHERE type LIKE \'%todo%\'',
   );
   const data = helper.emptyOrRows(rows);
-  const meta = { page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25) };
+  const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
 
   return {
     data,
@@ -42,7 +42,7 @@ async function getToDosByDone(done, page = 1) {
     `SELECT COUNT(*) FROM annotations WHERE type LIKE '%todo%' AND done = '${done}'`,
   );
   const data = helper.emptyOrRows(rows);
-  const meta = { page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25) };
+  const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
 
   return {
     data,
@@ -59,7 +59,7 @@ async function getNotes(order, page = 1) {
     'SELECT COUNT(*) FROM annotations WHERE type LIKE \'%note%\'',
   );
   const data = helper.emptyOrRows(rows);
-  const meta = { page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25) };
+  const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
 
   return {
     data,
@@ -76,7 +76,7 @@ async function getNotesByDate(date, page = 1) {
     `SELECT COUNT(*) FROM annotations WHERE type LIKE '%note%' AND creation_date LIKE '%${date}%'`,
   );
   const data = helper.emptyOrRows(rows);
-  const meta = { page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25) };
+  const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
 
   return {
     data,

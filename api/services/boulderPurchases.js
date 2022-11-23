@@ -13,7 +13,7 @@ async function getAll(page = 1) {
     'SELECT COUNT(*) FROM boulder_purchases',
   );
   const data = helper.emptyOrRows(rows);
-  const meta = { page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25) };
+  const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
 
   return {
     data,
@@ -30,7 +30,7 @@ async function searchPurchasesByDate(value, page = 1) {
     `SELECT COUNT(*) FROM boulder_purchases WHERE date LIKE '${value}'`,
   );
   const data = helper.emptyOrRows(rows);
-  const meta = { page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25) };
+  const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
 
   return {
     data,

@@ -11,7 +11,7 @@ async function getAll(page = 1) {
     'SELECT COUNT(*) FROM lessons_purchased',
   );
   const data = helper.emptyOrRows(rows);
-  const meta = { page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25) };
+  const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
 
   return {
     data,

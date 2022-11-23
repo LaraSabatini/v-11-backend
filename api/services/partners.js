@@ -13,7 +13,7 @@ async function getMultiple(page = 1) {
     'SELECT COUNT(*) FROM partners',
   );
   const data = helper.emptyOrRows(rows);
-  const meta = { page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25) };
+  const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
 
   return {
     data,
@@ -44,7 +44,7 @@ async function filterStudents(value, page = 1) {
     `SELECT COUNT(*) FROM partners WHERE is_student LIKE '${value}'`,
   );
   const data = helper.emptyOrRows(rows);
-  const meta = { page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25) };
+  const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
 
   return {
     data,
@@ -61,7 +61,7 @@ async function filterFreePass(value, page = 1) {
     `SELECT COUNT(*) FROM partners WHERE free_pass LIKE '${value}'`,
   );
   const data = helper.emptyOrRows(rows);
-  const meta = { page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25) };
+  const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
 
   return {
     data,

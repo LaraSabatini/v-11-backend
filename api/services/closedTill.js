@@ -27,7 +27,7 @@ async function getByDate(date, page = 1) {
     `SELECT COUNT(*) FROM closed_till WHERE date LIKE '%${date}%'`,
   );
   const data = helper.emptyOrRows(rows);
-  const meta = { page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25) };
+  const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
 
   return {
     data,

@@ -13,7 +13,7 @@ async function getAll(page = 1) {
     'SELECT COUNT(*) FROM digital_payments',
   );
   const data = helper.emptyOrRows(rows);
-  const meta = { page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25) };
+  const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
 
   return {
     data,
@@ -44,7 +44,7 @@ async function searchByUser(userId, page = 1) {
     `SELECT COUNT(*) FROM digital_payments WHERE user_id = '${userId}'`,
   );
   const data = helper.emptyOrRows(rows);
-  const meta = { page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25) };
+  const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
 
   return {
     data,
@@ -61,7 +61,7 @@ async function searchByMonth(monthId, page = 1) {
     `SELECT COUNT(*) FROM digital_payments WHERE month_id = '${monthId}'`,
   );
   const data = helper.emptyOrRows(rows);
-  const meta = { page, totalPages: Math.ceil(Object.values(amountOfPages[0])[0] / 25) };
+  const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
 
   return {
     data,

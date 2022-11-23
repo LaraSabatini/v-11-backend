@@ -9,7 +9,12 @@ function emptyOrRows(rows) {
   return rows;
 }
 
+function calcTotalPages(amountOfPages) {
+  return Math.ceil(Object.values(amountOfPages[0])[0] / 25);
+}
+
 module.exports = {
   getOffset,
   emptyOrRows,
+  calcTotalPages,
 };
