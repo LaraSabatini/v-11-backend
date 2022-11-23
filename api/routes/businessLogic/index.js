@@ -1,27 +1,21 @@
 const express = require('express');
+
 const router = express.Router();
 const businessLogic = require('../../services/businessLogic');
+const errorResponses = require('../../../strings/errorMessages');
 
-router.post('/create-partner', async function(req, res, next) {
-    try {
-      res.json(await businessLogic.createPartner(req.body.partner, req.body.partnerPayment, req.body.boulderPayment));
-    } catch (err) {
-        const response = {
-            status: 500,
-        }
-        res.status(500).json(response)
-    }
-});
-
-router.post('/update-partner-payment', async function(req, res, next) {
-    try {
-      res.json(await businessLogic.updatePartnerPayment(req.body.boulderPayment, req.body.partnerPayment));
-    } catch (err) {
-        const response = {
-            status: 500,
-        }
-        res.status(500).json(response)
-    }
+router.post('/create-partner', async (req, res, next) => {
+  try {
+    // eslint-disable-next-line max-len
+    res.json(await businessLogic.createPartner(req.body.partner, req.body.partnerPayment, req.body.boulderPayment));
+  } catch (err) {
+    next(err);
+    const response = {
+      status: 500,
+      message: errorResponses.createPartner,
+    };
+    res.status(500).json(response);
+  }
 });
 
 module.exports = router;

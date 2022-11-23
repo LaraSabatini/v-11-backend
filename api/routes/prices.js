@@ -1,27 +1,33 @@
 const express = require('express');
+
 const router = express.Router();
 const prices = require('../services/prices');
+const errorResponses = require('../../strings/errorMessages');
 
-/* GET prices */
-router.get('/', async function(req, res, next) {
+router.get('/', async (req, res, next) => {
   try {
     res.json(await prices.getMultiple(req.query.page));
-    console.log(req);
   } catch (err) {
-    console.error(`Error while getting the prices `, err.message);
     next(err);
+    const response = {
+      status: 500,
+      message: errorResponses.search,
+    };
+    res.status(500).json(response);
   }
 });
 
-/* PUT price */
-router.put('/:id', async function(req, res, next) {
-    try {
-      res.json(await prices.update(req.params.id, req.body));
-    } catch (err) {
-      console.error(`Error while updating price`, err.message);
-      next(err);
-    }
-  });
-  
+router.put('/:id', async (req, res, next) => {
+  try {
+    res.json(await prices.update(req.params.id, req.body));
+  } catch (err) {
+    next(err);
+    const response = {
+      status: 500,
+      message: errorResponses.updatePrices,
+    };
+    res.status(500).json(response);
+  }
+});
 
 module.exports = router;

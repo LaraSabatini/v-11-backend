@@ -1,34 +1,43 @@
 const express = require('express');
+
 const router = express.Router();
 const boulderPurchases = require('../services/boulderPurchases');
+const errorResponses = require('../../strings/errorMessages');
 
-router.get('/', async function(req, res, next) {
+const errorResponse = {
+  status: 500,
+  message: errorResponses.updatePartnerPayment,
+};
+
+router.get('/', async (req, res, next) => {
   try {
     res.json(await boulderPurchases.getAll(req.query.page));
-    console.log(req);
   } catch (err) {
-    console.error(`Error while getting the digital payments `, err.message);
+    res.status(500).json(errorResponse);
     next(err);
   }
 });
 
-router.get('/date=:date', async function(req, res, next) {
-    try {
-      res.json(await boulderPurchases.searchPurchasesByDate(req.params.date, req.query.page));
-      console.log(req);
-    } catch (err) {
-      console.error(`Error while getting search `, err.message);
-      next(err);
-    }
+router.get('/date=:date', async (req, res, next) => {
+  try {
+    res.json(await boulderPurchases.searchPurchasesByDate(req.params.date, req.query.page));
+  } catch (err) {
+    const response = {
+      status: 500,
+      message: errorResponses.search,
+    };
+    res.status(500).json(response);
+    next(err);
+  }
 });
 
-router.post('/', async function(req, res, next) {
-    try {
-      res.json(await boulderPurchases.create(req.body));
-    } catch (err) {
-      console.error(`Error while creating boulder purchase`, err.message);
-      next(err);
-    }
+router.post('/', async (req, res, next) => {
+  try {
+    res.json(await boulderPurchases.create(req.body));
+  } catch (err) {
+    res.status(500).json(errorResponse);
+    next(err);
+  }
 });
 
 module.exports = router;
