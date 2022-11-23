@@ -2,10 +2,14 @@ const db = require('./db');
 const helper = require('../../helper');
 const config = require('../../config');
 
+const table = 'trainers';
+
+const selectTable = `SELECT * FROM ${table}`;
+
 async function getMultiple(page = 1) {
   const offset = helper.getOffset(config.listPerPage, page);
   const rows = await db.query(
-    `SELECT * FROM trainers LIMIT ${offset},${config.listPerPage}`,
+    `${selectTable} LIMIT ${offset},${config.listPerPage}`,
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page };
@@ -19,7 +23,7 @@ async function getMultiple(page = 1) {
 async function searchTrainer(value, page = 1) {
   const offset = helper.getOffset(config.listPerPage, page);
   const rows = await db.query(
-    `SELECT * FROM trainers WHERE name LIKE '%${value}%' LIMIT ${offset},${config.listPerPage}`,
+    `${selectTable} WHERE name LIKE '%${value}%' LIMIT ${offset},${config.listPerPage}`,
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page };
@@ -32,7 +36,7 @@ async function searchTrainer(value, page = 1) {
 
 async function create(trainer) {
   const result = await db.query(
-    `INSERT INTO trainers(name, last_name, min_students, max_students)
+    `INSERT INTO ${table}(name, last_name, min_students, max_students)
     VALUES ('${trainer.name}','${trainer.last_name}','${trainer.min_students}','${trainer.max_students}')`,
   );
 
@@ -47,7 +51,7 @@ async function create(trainer) {
 
 async function update(id, trainer) {
   const result = await db.query(
-    `UPDATE trainers SET id=${trainer.id},name=${trainer.name},last_name=${trainer.last_name},min_students=${trainer.min_students},max_students=${trainer.max_students} WHERE id='${id}'`,
+    `UPDATE ${table} SET id=${trainer.id},name=${trainer.name},last_name=${trainer.last_name},min_students=${trainer.min_students},max_students=${trainer.max_students} WHERE id='${id}'`,
   );
 
   let message = 'Error in updating trainer';

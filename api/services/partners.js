@@ -4,13 +4,18 @@ const config = require('../../config');
 const successResponses = require('../../strings/successMessages');
 const errorResponses = require('../../strings/errorMessages');
 
+const table = 'partners';
+
+const selectTable = `SELECT * FROM ${table}`;
+const selectCount = `SELECT COUNT(*) FROM ${table}`;
+
 async function getMultiple(page = 1) {
   const offset = helper.getOffset(config.listPerPage, page);
   const rows = await db.query(
-    `SELECT * FROM partners LIMIT ${offset},${config.listPerPage}`,
+    `${selectTable} LIMIT ${offset},${config.listPerPage}`,
   );
   const amountOfPages = await db.query(
-    'SELECT COUNT(*) FROM partners',
+    `${selectCount}`,
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
@@ -24,7 +29,7 @@ async function getMultiple(page = 1) {
 async function searchPartner(value, page = 1) {
   const offset = helper.getOffset(config.listPerPage, page);
   const rows = await db.query(
-    `SELECT * FROM partners WHERE name LIKE '%${value}%' OR identification_number LIKE '%${value}%' OR last_name LIKE '%${value}%' LIMIT ${offset},${config.listPerPage}`,
+    `${selectTable} WHERE name LIKE '%${value}%' OR identification_number LIKE '%${value}%' OR last_name LIKE '%${value}%' LIMIT ${offset},${config.listPerPage}`,
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page };
@@ -38,10 +43,10 @@ async function searchPartner(value, page = 1) {
 async function filterStudents(value, page = 1) {
   const offset = helper.getOffset(config.listPerPage, page);
   const rows = await db.query(
-    `SELECT * FROM partners WHERE is_student = '${value}' LIMIT ${offset},${config.listPerPage}`,
+    `${selectTable} WHERE is_student = '${value}' LIMIT ${offset},${config.listPerPage}`,
   );
   const amountOfPages = await db.query(
-    `SELECT COUNT(*) FROM partners WHERE is_student LIKE '${value}'`,
+    `${selectCount} WHERE is_student LIKE '${value}'`,
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
@@ -55,10 +60,10 @@ async function filterStudents(value, page = 1) {
 async function filterFreePass(value, page = 1) {
   const offset = helper.getOffset(config.listPerPage, page);
   const rows = await db.query(
-    `SELECT * FROM partners WHERE free_pass = '${value}' LIMIT ${offset},${config.listPerPage}`,
+    `${selectTable} WHERE free_pass = '${value}' LIMIT ${offset},${config.listPerPage}`,
   );
   const amountOfPages = await db.query(
-    `SELECT COUNT(*) FROM partners WHERE free_pass LIKE '${value}'`,
+    `${selectCount} WHERE free_pass LIKE '${value}'`,
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
@@ -71,7 +76,7 @@ async function filterFreePass(value, page = 1) {
 
 async function create(partner) {
   const result = await db.query(
-    `INSERT INTO partners(name, last_name, identification_number, birth_date, email, phone, membership_start_date, created_by, free_pass, subs, is_student)
+    `INSERT INTO ${table}(name, last_name, identification_number, birth_date, email, phone, membership_start_date, created_by, free_pass, subs, is_student)
     VALUES ('${partner.name}','${partner.last_name}', '${partner.identification_number}', '${partner.birth_date}', '${partner.email}', '${partner.phone}', '${partner.membership_start_date}', '${partner.created_by}', '${partner.free_pass}', '${partner.subs}', '${partner.is_student}')`,
   );
 
@@ -94,7 +99,7 @@ async function create(partner) {
 
 async function update(id, partner) {
   const result = await db.query(
-    `UPDATE partners SET id='${partner.id}',name='${partner.name}',last_name='${partner.last_name}',identification_number='${partner.identification_number}',birth_date='${partner.birth_date}',email='${partner.email}',phone='${partner.phone}',membership_start_date='${partner.membership_start_date}',created_by='${partner.created_by}',free_pass='${partner.free_pass}',is_student='${partner.is_student}',subs='${partner.subs}' WHERE id='${id}'`,
+    `UPDATE ${table} SET id='${partner.id}',name='${partner.name}',last_name='${partner.last_name}',identification_number='${partner.identification_number}',birth_date='${partner.birth_date}',email='${partner.email}',phone='${partner.phone}',membership_start_date='${partner.membership_start_date}',created_by='${partner.created_by}',free_pass='${partner.free_pass}',is_student='${partner.is_student}',subs='${partner.subs}' WHERE id='${id}'`,
   );
 
   let message = {
@@ -114,7 +119,7 @@ async function update(id, partner) {
 
 async function removePartner(id) {
   const result = await db.query(
-    `DELETE FROM partners WHERE id=${id}`,
+    `DELETE FROM ${table} WHERE id=${id}`,
   );
 
   let message = {
@@ -134,7 +139,7 @@ async function removePartner(id) {
 
 async function getPartnerById(value) {
   const rows = await db.query(
-    `SELECT * FROM partners WHERE id = '${value}'`,
+    `${selectTable} WHERE id = '${value}'`,
   );
   const data = helper.emptyOrRows(rows);
 

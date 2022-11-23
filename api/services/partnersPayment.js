@@ -4,13 +4,17 @@ const config = require('../../config');
 const successResponses = require('../../strings/successMessages');
 const errorResponses = require('../../strings/errorMessages');
 
+const table = 'partner_payments';
+
+const selectTable = `SELECT * FROM ${table}`;
+
 async function getMultiple(page = 1) {
   const offset = helper.getOffset(config.listPerPage, page);
   const rows = await db.query(
-    `SELECT * FROM partner_payments LIMIT ${offset},${config.listPerPage}`,
+    `${selectTable} LIMIT ${offset},${config.listPerPage}`,
   );
   const amountOfPages = await db.query(
-    'SELECT COUNT(*) FROM partner_payments',
+    `SELECT COUNT(*) FROM ${table}`,
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page, totalPages: helper.calcTotalPages(amountOfPages) };
@@ -24,7 +28,7 @@ async function getMultiple(page = 1) {
 async function searchPurchasesByPartner(value, page = 1) {
   const offset = helper.getOffset(config.listPerPage, page);
   const rows = await db.query(
-    `SELECT * FROM partner_payments WHERE partner_name LIKE '%${value}%' OR partner_last_name LIKE '%${value}%' LIMIT ${offset},${config.listPerPage}`,
+    `${selectTable} WHERE partner_name LIKE '%${value}%' OR partner_last_name LIKE '%${value}%' LIMIT ${offset},${config.listPerPage}`,
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page };
@@ -38,7 +42,7 @@ async function searchPurchasesByPartner(value, page = 1) {
 async function searchPurchasesByDate(value, page = 1) {
   const offset = helper.getOffset(config.listPerPage, page);
   const rows = await db.query(
-    `SELECT * FROM partner_payments WHERE date LIKE '%${value}%' LIMIT ${offset},${config.listPerPage}`,
+    `${selectTable} WHERE date LIKE '%${value}%' LIMIT ${offset},${config.listPerPage}`,
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page };
@@ -51,7 +55,7 @@ async function searchPurchasesByDate(value, page = 1) {
 
 async function getPurchaseByPartnerId(id) {
   const rows = await db.query(
-    `SELECT * FROM partner_payments WHERE partner_id = ${id}`,
+    `${selectTable} WHERE partner_id = ${id}`,
   );
   const data = helper.emptyOrRows(rows);
 
@@ -62,7 +66,7 @@ async function getPurchaseByPartnerId(id) {
 
 async function create(partnerPayment) {
   const result = await db.query(
-    `INSERT INTO partner_payments(partner_id, partner_name, partner_last_name, combo, time_paid, time_paid_unit, payment_method_id, payment_method_name, price_paid, date, payment_expire_date, created_by)
+    `INSERT INTO ${table}(partner_id, partner_name, partner_last_name, combo, time_paid, time_paid_unit, payment_method_id, payment_method_name, price_paid, date, payment_expire_date, created_by)
     VALUES ('${partnerPayment.partner_id}','${partnerPayment.partner_name}', '${partnerPayment.partner_last_name}', '${partnerPayment.combo}', '${partnerPayment.time_paid}', '${partnerPayment.time_paid_unit}', '${partnerPayment.payment_method_id}', '${partnerPayment.payment_method_name}', '${partnerPayment.price_paid}', '${partnerPayment.date}', '${partnerPayment.payment_expire_date}', '${partnerPayment.created_by}')`,
   );
 
@@ -83,7 +87,7 @@ async function create(partnerPayment) {
 
 async function update(id, partnerPayment) {
   const result = await db.query(
-    `UPDATE partner_payments SET id='${partnerPayment.id}',partner_id='${partnerPayment.partner_id}',partner_name='${partnerPayment.partner_name}',partner_last_name='${partnerPayment.partner_last_name}',combo='${partnerPayment.combo}',time_paid='${partnerPayment.time_paid}',time_paid_unit='${partnerPayment.time_paid_unit}', payment_method_id='${partnerPayment.payment_method_id}', payment_method_name='${partnerPayment.payment_method_name}', price_paid='${partnerPayment.price_paid}', date='${partnerPayment.date}', payment_expire_date='${partnerPayment.payment_expire_date}', created_by='${partnerPayment.created_by}' WHERE id='${id}'`,
+    `UPDATE ${table} SET id='${partnerPayment.id}',partner_id='${partnerPayment.partner_id}',partner_name='${partnerPayment.partner_name}',partner_last_name='${partnerPayment.partner_last_name}',combo='${partnerPayment.combo}',time_paid='${partnerPayment.time_paid}',time_paid_unit='${partnerPayment.time_paid_unit}', payment_method_id='${partnerPayment.payment_method_id}', payment_method_name='${partnerPayment.payment_method_name}', price_paid='${partnerPayment.price_paid}', date='${partnerPayment.date}', payment_expire_date='${partnerPayment.payment_expire_date}', created_by='${partnerPayment.created_by}' WHERE id='${id}'`,
   );
 
   let message = {
@@ -103,7 +107,7 @@ async function update(id, partnerPayment) {
 
 async function getEarningsByDate(date) {
   const rows = await db.query(
-    `SELECT price_paid, payment_method_id, combo, time_paid, time_paid_unit FROM partner_payments WHERE date = '${date}'`,
+    `SELECT price_paid, payment_method_id, combo, time_paid, time_paid_unit FROM ${table} WHERE date = '${date}'`,
   );
   const data = helper.emptyOrRows(rows);
 

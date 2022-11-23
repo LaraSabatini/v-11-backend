@@ -4,11 +4,13 @@ const config = require('../../config');
 const successResponses = require('../../strings/successMessages');
 const errorResponses = require('../../strings/errorMessages');
 
+const table = 'combos';
+
 async function getMultiple(page = 1) {
   const offset = helper.getOffset(config.listPerPage, page);
   const rows = await db.query(
     `SELECT id, name, price_cash, price_mp, description
-    FROM combos LIMIT ${offset},${config.listPerPage}`,
+    FROM ${table} LIMIT ${offset},${config.listPerPage}`,
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page };
@@ -21,7 +23,7 @@ async function getMultiple(page = 1) {
 
 async function update(id, combo) {
   const result = await db.query(
-    `UPDATE combos SET id='${combo.id}',name='${combo.name}',price_cash='${combo.price_cash}',price_mp='${combo.price_mp}', description='${combo.description}' WHERE id='${id}'`,
+    `UPDATE ${table} SET id='${combo.id}',name='${combo.name}',price_cash='${combo.price_cash}',price_mp='${combo.price_mp}', description='${combo.description}' WHERE id='${id}'`,
   );
 
   let message = {

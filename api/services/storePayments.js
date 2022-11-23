@@ -2,10 +2,14 @@ const db = require('./db');
 const helper = require('../../helper');
 const config = require('../../config');
 
+const table = 'store_payments';
+
+const selectTable = `SELECT * FROM ${table}`;
+
 async function getMultiple(page = 1) {
   const offset = helper.getOffset(config.listPerPage, page);
   const rows = await db.query(
-    `SELECT * FROM store_payments LIMIT ${offset},${config.listPerPage}`,
+    `${selectTable} LIMIT ${offset},${config.listPerPage}`,
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page };
@@ -18,7 +22,7 @@ async function getMultiple(page = 1) {
 
 async function getByDate(date) {
   const rows = await db.query(
-    `SELECT * FROM store_payments WHERE date = '${date}'`,
+    `${selectTable} WHERE date = '${date}'`,
   );
   const data = helper.emptyOrRows(rows);
 
@@ -29,7 +33,7 @@ async function getByDate(date) {
 
 async function getByDateAndPaymentMethodAndProduct(date, product, payment) {
   const rows = await db.query(
-    `SELECT * FROM store_payments WHERE date LIKE '${date}' AND product_id = ${product} AND payment_method_id = ${payment}`,
+    `${selectTable} WHERE date LIKE '${date}' AND product_id = ${product} AND payment_method_id = ${payment}`,
   );
   const data = helper.emptyOrRows(rows);
 
@@ -40,7 +44,7 @@ async function getByDateAndPaymentMethodAndProduct(date, product, payment) {
 
 async function create(productPurchase) {
   const result = await db.query(
-    `INSERT INTO store_payments(product_id, product_name, amount_of_items, profit, payment_method_id, date, created_by)
+    `INSERT INTO ${table}(product_id, product_name, amount_of_items, profit, payment_method_id, date, created_by)
     VALUES ('${productPurchase.product_id}','${productPurchase.product_name}', '${productPurchase.amount_of_items}', '${productPurchase.profit}', '${productPurchase.payment_method_id}', '${productPurchase.date}', '${productPurchase.created_by}')`,
   );
 
@@ -55,7 +59,7 @@ async function create(productPurchase) {
 
 async function update(id, productPurchase) {
   const result = await db.query(
-    `UPDATE store_payments SET id='${productPurchase.id}',product_id='${productPurchase.product_id}',product_name='${productPurchase.product_name}',amount_of_items='${productPurchase.amount_of_items}',profit='${productPurchase.profit}',payment_method_id='${productPurchase.payment_method_id}',date='${productPurchase.date}', created_by='${productPurchase.created_by}' WHERE id='${id}'`,
+    `UPDATE ${table} SET id='${productPurchase.id}',product_id='${productPurchase.product_id}',product_name='${productPurchase.product_name}',amount_of_items='${productPurchase.amount_of_items}',profit='${productPurchase.profit}',payment_method_id='${productPurchase.payment_method_id}',date='${productPurchase.date}', created_by='${productPurchase.created_by}' WHERE id='${id}'`,
   );
 
   let message = 'Error in updating store_payments';
