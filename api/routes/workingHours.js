@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 const workingHours = require('../services/workingHours');
 
-/* GET workingHours */
 router.get('/', async (req, res, next) => {
   try {
     res.json(await workingHours.getMultiple(req.query.page));
@@ -12,7 +11,6 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-/* SEARCH partners */
 router.get('/weekId=:weekId', async (req, res, next) => {
   try {
     res.json(await workingHours.getByWeek(req.params.weekId, req.query.page));
@@ -21,7 +19,6 @@ router.get('/weekId=:weekId', async (req, res, next) => {
   }
 });
 
-/* POST products */
 router.post('/', async (req, res, next) => {
   try {
     res.json(await workingHours.create(req.body));
@@ -30,7 +27,6 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-/* PUT product */
 router.put('/:id', async (req, res, next) => {
   try {
     res.json(await workingHours.update(req.params.id, req.body));

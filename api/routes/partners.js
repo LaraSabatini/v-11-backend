@@ -4,16 +4,17 @@ const router = express.Router();
 const partners = require('../services/partners');
 const errorResponses = require('../../strings/errorMessages');
 
+const errorResSearch = {
+  status: 500,
+  message: errorResponses.search,
+};
+
 router.get('/', async (req, res, next) => {
   try {
     res.json(await partners.getMultiple(req.query.page));
   } catch (err) {
     next(err);
-    const response = {
-      status: 500,
-      message: errorResponses.search,
-    };
-    res.status(500).json(response);
+    res.status(500).json(errorResSearch);
   }
 });
 
@@ -22,11 +23,7 @@ router.get('/:value', async (req, res, next) => {
     res.json(await partners.searchPartner(req.params.value, req.query.page));
   } catch (err) {
     next(err);
-    const response = {
-      status: 500,
-      message: errorResponses.search,
-    };
-    res.status(500).json(response);
+    res.status(500).json(errorResSearch);
   }
 });
 
@@ -35,11 +32,7 @@ router.get('/by-id/:value', async (req, res, next) => {
     res.json(await partners.getPartnerById(req.params.value));
   } catch (err) {
     next(err);
-    const response = {
-      status: 500,
-      message: errorResponses.search,
-    };
-    res.status(500).json(response);
+    res.status(500).json(errorResSearch);
   }
 });
 
@@ -48,11 +41,7 @@ router.get('/students/:value', async (req, res, next) => {
     res.json(await partners.filterStudents(req.params.value, req.query.page));
   } catch (err) {
     next(err);
-    const response = {
-      status: 500,
-      message: errorResponses.search,
-    };
-    res.status(500).json(response);
+    res.status(500).json(errorResSearch);
   }
 });
 
@@ -61,11 +50,7 @@ router.get('/free-pass/:value', async (req, res, next) => {
     res.json(await partners.filterFreePass(req.params.value, req.query.page));
   } catch (err) {
     next(err);
-    const response = {
-      status: 500,
-      message: errorResponses.search,
-    };
-    res.status(500).json(response);
+    res.status(500).json(errorResSearch);
   }
 });
 

@@ -11,7 +11,6 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-/* SEARCH purchases by month and product */
 router.get('/date=:date', async (req, res, next) => {
   try {
     res.json(await storePayments.getByDate(req.params.date, req.query.page));
@@ -20,7 +19,6 @@ router.get('/date=:date', async (req, res, next) => {
   }
 });
 
-// /* SEARCH purchases by month and product */
 router.get('/month=:date&product=:product&payment=:payment', async (req, res, next) => {
   try {
     // eslint-disable-next-line max-len
@@ -30,7 +28,6 @@ router.get('/month=:date&product=:product&payment=:payment', async (req, res, ne
   }
 });
 
-/* POST purchase */
 router.post('/', async (req, res, next) => {
   try {
     res.json(await storePayments.create(req.body));
