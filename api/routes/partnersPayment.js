@@ -1,79 +1,79 @@
 const express = require('express');
+
 const router = express.Router();
 const partnersPayment = require('../services/partnersPayment');
+const errorResponses = require('../../strings/errorMessages');
 
-/* GET partnersPayment */
-router.get('/', async function(req, res, next) {
+const errorResSearch = {
+  status: 500,
+  message: errorResponses.search,
+};
+
+const errorResPayment = {
+  status: 500,
+  message: errorResponses.updatePartnerPayment,
+};
+
+router.get('/', async (req, res, next) => {
   try {
     res.json(await partnersPayment.getMultiple(req.query.page));
-    console.log(req);
   } catch (err) {
-    console.error(`Error while getting the store data `, err.message);
     next(err);
+    res.status(500).json(errorResSearch);
   }
 });
 
-/* SEARCH partnersPayment by partner */
-router.get('/:value', async function(req, res, next) {
-    try {
-      res.json(await partnersPayment.searchPurchasesByPartner(req.params.value, req.query.page));
-      console.log(req);
-    } catch (err) {
-      console.error(`Error while getting search `, err.message);
-      next(err);
-    }
+router.get('/:value', async (req, res, next) => {
+  try {
+    res.json(await partnersPayment.searchPurchasesByPartner(req.params.value, req.query.page));
+  } catch (err) {
+    next(err);
+    res.status(500).json(errorResSearch);
+  }
 });
 
-/* SEARCH partnersPayment by date */
-router.get('/date/:value', async function(req, res, next) {
+router.get('/date/:value', async (req, res, next) => {
   try {
     res.json(await partnersPayment.searchPurchasesByDate(req.params.value, req.query.page));
-    console.log(req);
   } catch (err) {
-    console.error(`Error while getting search `, err.message);
     next(err);
+    res.status(500).json(errorResSearch);
   }
 });
 
-/* SEARCH partnersPayment by date */
-router.get('/cards/:date', async function(req, res, next) {
+router.get('/cards/:date', async (req, res, next) => {
   try {
     res.json(await partnersPayment.getEarningsByDate(req.params.date));
-    console.log(req);
   } catch (err) {
-    console.error(`Error while getting search `, err.message);
     next(err);
+    res.status(500).json(errorResSearch);
   }
 });
 
-/* SEARCH partnersPayment by partner_id */
-router.get('/payment_by_partner_id/:value', async function(req, res, next) {
+router.get('/payment_by_partner_id/:value', async (req, res, next) => {
   try {
     res.json(await partnersPayment.getPurchaseByPartnerId(req.params.value));
-    console.log(req);
   } catch (err) {
-    console.error(`Error while getting search `, err.message);
     next(err);
+    res.status(500).json(errorResSearch);
   }
 });
 
-/* POST purchase */
-router.post('/', async function(req, res, next) {
+router.post('/', async (req, res, next) => {
   try {
     res.json(await partnersPayment.create(req.body));
   } catch (err) {
-    console.error(`Error while creating product`, err.message);
     next(err);
+    res.status(500).json(errorResPayment);
   }
 });
 
-/* PUT payment */
-router.put('/:id', async function(req, res, next) {
+router.put('/:id', async (req, res, next) => {
   try {
     res.json(await partnersPayment.update(req.params.id, req.body));
   } catch (err) {
-    console.error(`Error while updating payment`, err.message);
     next(err);
+    res.status(500).json(errorResPayment);
   }
 });
 

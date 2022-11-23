@@ -1,89 +1,97 @@
 const express = require('express');
+
 const router = express.Router();
 const partners = require('../services/partners');
+const errorResponses = require('../../strings/errorMessages');
 
-/* GET partners */
-router.get('/', async function(req, res, next) {
+const errorResSearch = {
+  status: 500,
+  message: errorResponses.search,
+};
+
+router.get('/', async (req, res, next) => {
   try {
     res.json(await partners.getMultiple(req.query.page));
-    console.log(req);
   } catch (err) {
-    console.error(`Error while getting the partners `, err.message);
     next(err);
+    res.status(500).json(errorResSearch);
   }
 });
 
-/* SEARCH partners */
-router.get('/:value', async function(req, res, next) {
-    try {
-      res.json(await partners.searchPartner(req.params.value, req.query.page));
-      console.log(req);
-    } catch (err) {
-      console.error(`Error while getting search `, err.message);
-      next(err);
-    }
+router.get('/:value', async (req, res, next) => {
+  try {
+    res.json(await partners.searchPartner(req.params.value, req.query.page));
+  } catch (err) {
+    next(err);
+    res.status(500).json(errorResSearch);
+  }
 });
 
-/* SEARCH partners by id */
-router.get('/by-id/:value', async function(req, res, next) {
+router.get('/by-id/:value', async (req, res, next) => {
   try {
     res.json(await partners.getPartnerById(req.params.value));
-    console.log(req);
   } catch (err) {
-    console.error(`Error while getting search `, err.message);
     next(err);
+    res.status(500).json(errorResSearch);
   }
 });
 
-/* SEARCH students */
-router.get('/students/:value', async function(req, res, next) {
+router.get('/students/:value', async (req, res, next) => {
   try {
     res.json(await partners.filterStudents(req.params.value, req.query.page));
-    console.log(req);
   } catch (err) {
-    console.error(`Error while getting the partners `, err.message);
     next(err);
+    res.status(500).json(errorResSearch);
   }
 });
 
-/* SEARCH free-pass */
-router.get('/free-pass/:value', async function(req, res, next) {
+router.get('/free-pass/:value', async (req, res, next) => {
   try {
     res.json(await partners.filterFreePass(req.params.value, req.query.page));
-    console.log(req);
   } catch (err) {
-    console.error(`Error while getting the partners `, err.message);
     next(err);
+    res.status(500).json(errorResSearch);
   }
 });
 
-/* POST partners */
-router.post('/', async function(req, res, next) {
+router.post('/', async (req, res, next) => {
   try {
     res.json(await partners.create(req.body));
   } catch (err) {
-    console.error(`Error while creating partner`, err.message);
     next(err);
+    const response = {
+      status: 500,
+      message: errorResponses.createPartner,
+    };
+    res.status(500).json(response);
   }
 });
 
 /* PUT partner */
-router.put('/:id', async function(req, res, next) {
+router.put('/:id', async (req, res, next) => {
   try {
     res.json(await partners.update(req.params.id, req.body));
   } catch (err) {
-    console.error(`Error while updating partner`, err.message);
     next(err);
+    const response = {
+      status: 500,
+      message: errorResponses.editPartner,
+    };
+    res.status(500).json(response);
   }
 });
 
 /* DELETE partner */
-router.delete('/:id', async function(req, res, next) {
+router.delete('/:id', async (req, res, next) => {
   try {
     res.json(await partners.removePartner(req.params.id));
   } catch (err) {
-    console.error(`Error while deleting product`, err.message);
     next(err);
+    const response = {
+      status: 500,
+      message: errorResponses.deletePartner,
+    };
+    res.status(500).json(response);
   }
 });
 

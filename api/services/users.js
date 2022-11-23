@@ -2,35 +2,37 @@ const db = require('./db');
 const helper = require('../../helper');
 const config = require('../../config');
 
-async function getMultiple(page = 1){
-  const offset = helper.getOffset(page, config.listPerPage);
+const table = 'users';
+
+async function getMultiple(page = 1) {
+  const offset = helper.getOffset(config.listPerPage, page);
   const rows = await db.query(
     `SELECT id, name, email, permissions, admin
-    FROM users LIMIT ${offset},${config.listPerPage}`
+    FROM ${table} LIMIT ${offset},${config.listPerPage}`,
   );
   const data = helper.emptyOrRows(rows);
-  const meta = {page};
+  const meta = { page };
 
   return {
-      data,
-      meta
-  }
+    data,
+    meta,
+  };
 }
 
-async function searchUser(name, password, page = 1){
+async function searchUser(name, password, page = 1) {
   const rows = await db.query(
-    `SELECT * FROM users WHERE name = ${name} AND password = ${password}`
-  )
+    `SELECT * FROM ${table} WHERE name = ${name} AND password = ${password}`,
+  );
   const data = helper.emptyOrRows(rows);
-  const meta = {page};
+  const meta = { page };
 
   return {
-      data,
-      meta
-  }
+    data,
+    meta,
+  };
 }
 
 module.exports = {
   getMultiple,
-  searchUser
-}
+  searchUser,
+};
