@@ -1,6 +1,8 @@
 const db = require('./db');
 const helper = require('../../helper');
 const config = require('../../config');
+const successResponses = require('../../strings/successMessages');
+const errorResponses = require('../../strings/errorMessages');
 
 const table = 'store_payments';
 
@@ -48,10 +50,16 @@ async function create(productPurchase) {
     VALUES ('${productPurchase.product_id}','${productPurchase.product_name}', '${productPurchase.amount_of_items}', '${productPurchase.profit}', '${productPurchase.payment_method_id}', '${productPurchase.date}', '${productPurchase.created_by}')`,
   );
 
-  let message = 'Error in creating productPurchase';
+  let message = {
+    status: 500,
+    message: errorResponses.storePurchase,
+  };
 
   if (result.affectedRows) {
-    message = 'productPurchase created successfully';
+    message = {
+      status: 200,
+      message: successResponses.storePurchase,
+    };
   }
 
   return { message };
@@ -62,10 +70,16 @@ async function update(id, productPurchase) {
     `UPDATE ${table} SET id='${productPurchase.id}',product_id='${productPurchase.product_id}',product_name='${productPurchase.product_name}',amount_of_items='${productPurchase.amount_of_items}',profit='${productPurchase.profit}',payment_method_id='${productPurchase.payment_method_id}',date='${productPurchase.date}', created_by='${productPurchase.created_by}' WHERE id='${id}'`,
   );
 
-  let message = 'Error in updating store_payments';
+  let message = {
+    status: 500,
+    message: errorResponses.storePurchase,
+  };
 
   if (result.affectedRows) {
-    message = 'store_payments updated successfully';
+    message = {
+      status: 200,
+      message: successResponses.storePurchase,
+    };
   }
 
   return { message };

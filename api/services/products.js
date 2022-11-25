@@ -1,6 +1,8 @@
 const db = require('./db');
 const helper = require('../../helper');
 const config = require('../../config');
+const successResponses = require('../../strings/successMessages');
+const errorResponses = require('../../strings/errorMessages');
 
 const table = 'products';
 
@@ -54,10 +56,16 @@ async function create(product) {
     VALUES ('${product.name}','${product.brand_id}', '${product.stock}', '${product.price}', '${product.margin}', '${product.cost}', '${product.sales_contact_name}', '${product.sales_contact_information}', '${product.category_id}')`,
   );
 
-  let message = 'Error in creating product';
+  let message = {
+    status: 500,
+    message: errorResponses.createProduct,
+  };
 
   if (result.affectedRows) {
-    message = 'Product created successfully';
+    message = {
+      status: 200,
+      message: successResponses.createProduct,
+    };
   }
 
   return { message };
@@ -68,10 +76,16 @@ async function update(id, product) {
     `UPDATE ${table} SET id='${product.id}',name='${product.name}',brand_id='${product.brand_id}',stock='${product.stock}',price='${product.price}',margin='${product.margin}',cost='${product.cost}',sales_contact_name='${product.sales_contact_name}', sales_contact_information='${product.sales_contact_information}', category_id='${product.category_id}' WHERE id='${id}'`,
   );
 
-  let message = 'Error in updating product';
+  let message = {
+    status: 500,
+    message: errorResponses.updateProduct,
+  };
 
   if (result.affectedRows) {
-    message = 'product updated successfully';
+    message = {
+      status: 200,
+      message: successResponses.updateProduct,
+    };
   }
 
   return { message };

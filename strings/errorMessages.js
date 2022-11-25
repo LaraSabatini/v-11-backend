@@ -77,6 +77,24 @@ const errorResponses = {
     status,
     icon,
   },
+  createProduct: {
+    title,
+    content: `${firstContent} crear el producto${secondContent}`,
+    status,
+    icon,
+  },
+  updateProduct: {
+    title,
+    content: `${firstContent} editar el producto${secondContent}`,
+    status,
+    icon,
+  },
+  storePurchase: {
+    title,
+    content: `${firstContent} procesar el pago${secondContent}`,
+    status,
+    icon,
+  },
 };
 
 module.exports = errorResponses;

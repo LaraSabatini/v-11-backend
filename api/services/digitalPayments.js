@@ -92,13 +92,13 @@ async function createDigitalPayment(payment) {
   );
 
   let message = {
-    stauts: 500,
+    status: 500,
     message: errorResponses.createDigitalPayment,
   };
 
   if (result.affectedRows) {
     message = {
-      stauts: 200,
+      status: 200,
       message: successResponses.createDigitalPayment,
     };
   }
@@ -112,13 +112,13 @@ async function updateDigitalPayment(id, payment) {
   );
 
   let message = {
-    stauts: 500,
+    status: 500,
     message: errorResponses.createDigitalPayment,
   };
 
   if (result.affectedRows) {
     message = {
-      stauts: 200,
+      status: 200,
       message: successResponses.createDigitalPayment,
     };
   }
