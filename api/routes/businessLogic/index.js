@@ -18,4 +18,12 @@ router.post('/create-partner', async (req, res, next) => {
   }
 });
 
+router.get('/finances/date=:date', async (req, res, next) => {
+  try {
+    res.json(await businessLogic.getDataForFinances(req.params.date, req.query.page));
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
