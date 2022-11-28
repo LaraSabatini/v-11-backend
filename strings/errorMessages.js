@@ -95,6 +95,12 @@ const errorResponses = {
     status,
     icon,
   },
+  closeTill: {
+    title,
+    content: `${firstContent} cerrar la caja${secondContent}`,
+    status,
+    icon,
+  },
 };
 
 module.exports = errorResponses;

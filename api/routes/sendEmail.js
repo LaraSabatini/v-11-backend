@@ -6,6 +6,9 @@ const router = express.Router();
 const path = require('path');
 require('dotenv').config();
 
+const errorResponses = require('../../strings/errorMessages');
+const successResponses = require('../../strings/successMessages');
+
 router.post('/close-till', async (req, res) => {
   const transporter = nodemailer.createTransport({
     host: process.env.MAIL_HOST,
@@ -63,10 +66,15 @@ router.post('/close-till', async (req, res) => {
 
   transporter.sendMail(mailOptions, (error) => {
     if (error) {
-      res.status(500).send(error.message);
+      const response = {
+        status: 500,
+        message: errorResponses.closeTill,
+      };
+      res.status(500).send(error.message).json(response);
     } else {
       const response = {
         status: 200,
+        message: successResponses.closeTill,
       };
       res.status(200).json(response);
     }
