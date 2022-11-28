@@ -69,6 +69,30 @@ const successResponses = {
     status,
     icon,
   },
+  closeTill: {
+    title,
+    content: 'La caja se ha cerrado exitosamente.',
+    status,
+    icon,
+  },
+  createProduct: {
+    title,
+    content: 'El producto se ha creado exitosamente.',
+    status,
+    icon,
+  },
+  updateProduct: {
+    title,
+    content: 'El producto se ha editado exitosamente.',
+    status,
+    icon,
+  },
+  storePurchase: {
+    title,
+    content: 'El pago se ha procesado exitosamente.',
+    status,
+    icon,
+  },
 };
 
 module.exports = successResponses;

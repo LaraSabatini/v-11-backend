@@ -3,6 +3,8 @@
 const db = require('./db');
 const helper = require('../../helper');
 const config = require('../../config');
+const successResponses = require('../../strings/successMessages');
+const errorResponses = require('../../strings/errorMessages');
 
 const table = 'closed_till';
 const selectTable = `SELECT * FROM ${table}`;
@@ -44,10 +46,16 @@ async function create(tillData) {
       VALUES ('${tillData.date}','${tillData.software_cash}','${tillData.software_mp}','${tillData.real_cash}','${tillData.real_mp}','${tillData.closed_by}')`,
   );
 
-  let message = 'Error in closing till';
+  let message = {
+    status: 500,
+    message: errorResponses.closeTill,
+  };
 
   if (result.affectedRows) {
-    message = 'Till closed successfully';
+    message = {
+      status: 200,
+      message: successResponses.closeTill,
+    };
   }
 
   return { message };
@@ -58,10 +66,16 @@ async function update(id, tillData) {
     `UPDATE ${table} SET id='${tillData.id}',date='${tillData.date}',software_cash='${tillData.software_cash}',software_mp='${tillData.software_mp}',real_cash='${tillData.real_cash}',real_mp='${tillData.real_mp}',closed_by='${tillData.closed_by}' WHERE id='${id}'`,
   );
 
-  let message = 'Error in updating till';
+  let message = {
+    status: 500,
+    message: errorResponses.closeTill,
+  };
 
   if (result.affectedRows) {
-    message = 'Till updated successfully';
+    message = {
+      status: 200,
+      message: successResponses.closeTill,
+    };
   }
 
   return { message };
