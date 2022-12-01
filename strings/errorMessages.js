@@ -101,6 +101,18 @@ const errorResponses = {
     status,
     icon,
   },
+  createLessonPurchase: {
+    title,
+    content: `${firstContent} hacer la reserva${secondContent}`,
+    status,
+    icon,
+  },
+  deleteLesson: {
+    title,
+    content: `${firstContent} borrar la reserva${secondContent}`,
+    status,
+    icon,
+  },
 };
 
 module.exports = errorResponses;

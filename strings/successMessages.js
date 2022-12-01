@@ -93,6 +93,18 @@ const successResponses = {
     status,
     icon,
   },
+  createLessonPurchase: {
+    title,
+    content: 'La reserva se ha realizado exitosamente.',
+    status,
+    icon,
+  },
+  deleteLesson: {
+    title,
+    content: 'La reserva se ha borrado exitosamente.',
+    status,
+    icon,
+  },
 };
 
 module.exports = successResponses;

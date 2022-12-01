@@ -1,6 +1,8 @@
 const db = require('./db');
 const helper = require('../../helper');
 const config = require('../../config');
+const successResponses = require('../../strings/successMessages');
+const errorResponses = require('../../strings/errorMessages');
 
 const table = 'lessons_purchased';
 
@@ -62,10 +64,16 @@ async function createPurchase(lessonPurchase) {
       VALUES ('${lessonPurchase.lesson_date}','${lessonPurchase.shift}', '${lessonPurchase.partner_id}', '${lessonPurchase.partner_name}', '${lessonPurchase.partner_last_name}', '${lessonPurchase.trainer_id}', '${lessonPurchase.trainer_id}', '${lessonPurchase.week_id}', '${lessonPurchase.paid}', '${lessonPurchase.day_id}', '${lessonPurchase.final_price}', '${lessonPurchase.payment_method_id}', '${lessonPurchase.paid_day}', '${lessonPurchase.created_by}')`,
   );
 
-  let message = 'Error in creating lesson purchase';
+  let message = {
+    status: 500,
+    message: errorResponses.createLessonPurchase,
+  };
 
   if (result.affectedRows) {
-    message = 'Lesson purchase created successfully';
+    message = {
+      status: 200,
+      message: successResponses.createLessonPurchase,
+    };
   }
 
   return { message };
@@ -76,10 +84,16 @@ async function updateLessonPurchase(id, lessonPurchase) {
     `UPDATE ${table} SET id='${lessonPurchase.id}',lesson_date='${lessonPurchase.lesson_date}',shift='${lessonPurchase.shift}',partner_id='${lessonPurchase.partner_id}',partner_name='${lessonPurchase.partner_name}',partner_last_name='${lessonPurchase.partner_last_name}',trainer_id='${lessonPurchase.trainer_id}',trainer_id='${lessonPurchase.trainer_id}', week_id='${lessonPurchase.week_id}', paid='${lessonPurchase.paid}', day_id='${lessonPurchase.day_id}', final_price='${lessonPurchase.final_price}', payment_method_id='${lessonPurchase.payment_method_id}', paid_day='${lessonPurchase.paid_day}', created_by='${lessonPurchase.created_by}' WHERE id='${id}'`,
   );
 
-  let message = 'Error in updating lesson purchase';
+  let message = {
+    status: 500,
+    message: errorResponses.createLessonPurchase,
+  };
 
   if (result.affectedRows) {
-    message = 'Lesson purchase updated successfully';
+    message = {
+      status: 200,
+      message: successResponses.createLessonPurchase,
+    };
   }
 
   return { message };
@@ -90,12 +104,17 @@ async function removeLessonPur(id) {
     `DELETE FROM ${table} WHERE id=${id}`,
   );
 
-  let message = 'Error in deleting purchase';
+  let message = {
+    status: 500,
+    message: errorResponses.deleteLesson,
+  };
 
   if (result.affectedRows) {
-    message = 'purchase deleted successfully';
+    message = {
+      status: 200,
+      message: successResponses.deleteLesson,
+    };
   }
-
   return { message };
 }
 
