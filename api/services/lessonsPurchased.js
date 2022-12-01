@@ -60,8 +60,8 @@ async function getByDateAndShift(date, shift) {
 
 async function createPurchase(lessonPurchase) {
   const result = await db.query(
-    `INSERT INTO ${table}(lesson_date, shift, partner_id, partner_name, partner_last_name, trainer_id, trainer_name, week_id, paid, day_id, final_price, payment_method_id, paid_day, created_by)
-      VALUES ('${lessonPurchase.lesson_date}','${lessonPurchase.shift}', '${lessonPurchase.partner_id}', '${lessonPurchase.partner_name}', '${lessonPurchase.partner_last_name}', '${lessonPurchase.trainer_id}', '${lessonPurchase.trainer_id}', '${lessonPurchase.week_id}', '${lessonPurchase.paid}', '${lessonPurchase.day_id}', '${lessonPurchase.final_price}', '${lessonPurchase.payment_method_id}', '${lessonPurchase.paid_day}', '${lessonPurchase.created_by}')`,
+    `INSERT INTO ${table}(lesson_date, shift, partner_id, partner_name, partner_last_name, trainer_id, trainer_name, week_id, paid, day_id, final_price, payment_method_id, paid_day, payment_expire_date, created_by)
+      VALUES ('${lessonPurchase.lesson_date}','${lessonPurchase.shift}', '${lessonPurchase.partner_id}', '${lessonPurchase.partner_name}', '${lessonPurchase.partner_last_name}', '${lessonPurchase.trainer_id}', '${lessonPurchase.trainer_name}', '${lessonPurchase.week_id}', '${lessonPurchase.paid}', '${lessonPurchase.day_id}', '${lessonPurchase.final_price}', '${lessonPurchase.payment_method_id}', '${lessonPurchase.paid_day}', '${lessonPurchase.payment_expire_date}', '${lessonPurchase.created_by}')`,
   );
 
   let message = {
@@ -81,7 +81,7 @@ async function createPurchase(lessonPurchase) {
 
 async function updateLessonPurchase(id, lessonPurchase) {
   const result = await db.query(
-    `UPDATE ${table} SET id='${lessonPurchase.id}',lesson_date='${lessonPurchase.lesson_date}',shift='${lessonPurchase.shift}',partner_id='${lessonPurchase.partner_id}',partner_name='${lessonPurchase.partner_name}',partner_last_name='${lessonPurchase.partner_last_name}',trainer_id='${lessonPurchase.trainer_id}',trainer_id='${lessonPurchase.trainer_id}', week_id='${lessonPurchase.week_id}', paid='${lessonPurchase.paid}', day_id='${lessonPurchase.day_id}', final_price='${lessonPurchase.final_price}', payment_method_id='${lessonPurchase.payment_method_id}', paid_day='${lessonPurchase.paid_day}', created_by='${lessonPurchase.created_by}' WHERE id='${id}'`,
+    `UPDATE ${table} SET id='${lessonPurchase.id}',lesson_date='${lessonPurchase.lesson_date}',shift='${lessonPurchase.shift}',partner_id='${lessonPurchase.partner_id}',partner_name='${lessonPurchase.partner_name}',partner_last_name='${lessonPurchase.partner_last_name}',trainer_id='${lessonPurchase.trainer_id}',trainer_id='${lessonPurchase.trainer_name}', week_id='${lessonPurchase.week_id}', paid='${lessonPurchase.paid}', day_id='${lessonPurchase.day_id}', final_price='${lessonPurchase.final_price}', payment_method_id='${lessonPurchase.payment_method_id}', paid_day='${lessonPurchase.paid_day}', payment_expire_date='${lessonPurchase.payment_expire_date}', created_by='${lessonPurchase.created_by}' WHERE id='${id}'`,
   );
 
   let message = {
