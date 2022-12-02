@@ -36,6 +36,19 @@ async function searchProducts(value, page = 1) {
   };
 }
 
+async function getProductsWithLowStock(stock, page = 1) {
+  const rows = await db.query(
+    `${selectTable} WHERE stock <= '${stock}'`,
+  );
+  const data = helper.emptyOrRows(rows);
+  const meta = { page };
+
+  return {
+    data,
+    meta,
+  };
+}
+
 async function filterByCategory(value, page = 1) {
   const offset = helper.getOffset(config.listPerPage, page);
   const rows = await db.query(
@@ -97,4 +110,5 @@ module.exports = {
   filterByCategory,
   create,
   update,
+  getProductsWithLowStock,
 };
