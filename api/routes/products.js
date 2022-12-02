@@ -11,6 +11,14 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/stock=:stock', async (req, res, next) => {
+  try {
+    res.json(await products.getProductsWithLowStock(req.params.stock, req.query.page));
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get('/:value', async (req, res, next) => {
   try {
     res.json(await products.searchProducts(req.params.value, req.query.page));
