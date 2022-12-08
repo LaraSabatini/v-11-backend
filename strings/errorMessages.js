@@ -119,6 +119,12 @@ const errorResponses = {
     status,
     icon,
   },
+  createCategory: {
+    title,
+    content: `${firstContent} crear la categoria${secondContent}`,
+    status,
+    icon,
+  },
 };
 
 module.exports = errorResponses;

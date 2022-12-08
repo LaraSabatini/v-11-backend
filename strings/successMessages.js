@@ -111,6 +111,12 @@ const successResponses = {
     status,
     icon,
   },
+  createCategory: {
+    title,
+    content: 'La categoria se ha creado exitosamente.',
+    status,
+    icon,
+  },
 };
 
 module.exports = successResponses;
