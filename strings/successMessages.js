@@ -105,6 +105,12 @@ const successResponses = {
     status,
     icon,
   },
+  createBrand: {
+    title,
+    content: 'La marca se ha creado exitosamente.',
+    status,
+    icon,
+  },
 };
 
 module.exports = successResponses;

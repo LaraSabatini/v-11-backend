@@ -113,6 +113,12 @@ const errorResponses = {
     status,
     icon,
   },
+  createBrand: {
+    title,
+    content: `${firstContent} crear la marca${secondContent}`,
+    status,
+    icon,
+  },
 };
 
 module.exports = errorResponses;
