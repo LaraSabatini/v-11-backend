@@ -38,7 +38,7 @@ async function searchProducts(value, page = 1) {
 
 async function getProductsWithLowStock(stock, page = 1) {
   const rows = await db.query(
-    `${selectTable} WHERE stock <= '${stock}' AND active = 0`,
+    `${selectTable} WHERE stock <= '${stock}' AND active = 1`,
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page };
