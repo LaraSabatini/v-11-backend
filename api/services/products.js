@@ -38,7 +38,7 @@ async function searchProducts(value, page = 1) {
 
 async function getProductsWithLowStock(stock, page = 1) {
   const rows = await db.query(
-    `${selectTable} WHERE stock <= '${stock}'`,
+    `${selectTable} WHERE stock <= '${stock}' AND active = 0`,
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page };
@@ -65,8 +65,8 @@ async function filterByCategory(value, page = 1) {
 
 async function create(product) {
   const result = await db.query(
-    `INSERT INTO ${table}(name, brand_id, stock, price, margin, cost, sales_contact_name, sales_contact_information, category_id)
-    VALUES ('${product.name}','${product.brand_id}', '${product.stock}', '${product.price}', '${product.margin}', '${product.cost}', '${product.sales_contact_name}', '${product.sales_contact_information}', '${product.category_id}')`,
+    `INSERT INTO ${table}(name, brand_id, stock, price, margin, cost, sales_contact_name, sales_contact_information, category_id, active)
+    VALUES ('${product.name}','${product.brand_id}', '${product.stock}', '${product.price}', '${product.margin}', '${product.cost}', '${product.sales_contact_name}', '${product.sales_contact_information}', '${product.category_id}', '${product.active}')`,
   );
 
   let message = {
@@ -86,7 +86,7 @@ async function create(product) {
 
 async function update(id, product) {
   const result = await db.query(
-    `UPDATE ${table} SET id='${product.id}',name='${product.name}',brand_id='${product.brand_id}',stock='${product.stock}',price='${product.price}',margin='${product.margin}',cost='${product.cost}',sales_contact_name='${product.sales_contact_name}', sales_contact_information='${product.sales_contact_information}', category_id='${product.category_id}' WHERE id='${id}'`,
+    `UPDATE ${table} SET id='${product.id}',name='${product.name}',brand_id='${product.brand_id}',stock='${product.stock}',price='${product.price}',margin='${product.margin}',cost='${product.cost}',sales_contact_name='${product.sales_contact_name}', sales_contact_information='${product.sales_contact_information}', category_id='${product.category_id}', active='${product.active}' WHERE id='${id}'`,
   );
 
   let message = {
