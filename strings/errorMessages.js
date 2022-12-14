@@ -113,6 +113,18 @@ const errorResponses = {
     status,
     icon,
   },
+  createBrand: {
+    title,
+    content: `${firstContent} crear la marca${secondContent}`,
+    status,
+    icon,
+  },
+  createCategory: {
+    title,
+    content: `${firstContent} crear la categoria${secondContent}`,
+    status,
+    icon,
+  },
 };
 
 module.exports = errorResponses;

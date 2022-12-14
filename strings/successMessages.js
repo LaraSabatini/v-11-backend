@@ -105,6 +105,18 @@ const successResponses = {
     status,
     icon,
   },
+  createBrand: {
+    title,
+    content: 'La marca se ha creado exitosamente.',
+    status,
+    icon,
+  },
+  createCategory: {
+    title,
+    content: 'La categoria se ha creado exitosamente.',
+    status,
+    icon,
+  },
 };
 
 module.exports = successResponses;
