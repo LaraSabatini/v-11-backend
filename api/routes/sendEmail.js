@@ -81,4 +81,54 @@ router.post('/close-till', async (req, res) => {
   });
 });
 
+router.post('/expire-date-reminder', async (req, res) => {
+  const transporter = nodemailer.createTransport({
+    host: process.env.MAIL_HOST,
+    port: 587,
+    secure: false,
+    auth: {
+      user: 'info@vonceescalada.com',
+      pass: process.env.MAIL_PASS,
+    },
+  });
+
+  const handlebarOptions = {
+    viewEngine: {
+      partialsDir: path.resolve('../../views/'),
+      defaultLayout: false,
+    },
+    viewPath: path.resolve('./views/'),
+  };
+
+  transporter.use('compile', hbs(handlebarOptions));
+
+  const mailOptions = {
+    from: '"V11 - Club de Escalada" <info@vonceescalada.com>',
+    to: req.body.recipients,
+    subject: req.body.subject,
+    template: 'expireDateReminder',
+    context: {
+      item: req.body.item,
+      event: req.body.url,
+      expDate: req.body.expDate,
+    },
+  };
+
+  transporter.sendMail(mailOptions, (error) => {
+    if (error) {
+      const response = {
+        status: 500,
+        message: errorResponses.sendExpireDateEmail,
+      };
+      res.status(500).send(error.message).json(response);
+    } else {
+      const response = {
+        status: 200,
+        message: successResponses.sendExpireDateEmail,
+      };
+      res.status(200).json(response);
+    }
+  });
+});
+
 module.exports = router;

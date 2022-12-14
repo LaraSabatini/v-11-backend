@@ -117,6 +117,12 @@ const successResponses = {
     status,
     icon,
   },
+  sendExpireDateEmail: {
+    title,
+    content: 'El mail se ha enviado exitosamente.',
+    status,
+    icon,
+  },
 };
 
 module.exports = successResponses;

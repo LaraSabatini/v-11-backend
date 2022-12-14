@@ -125,6 +125,12 @@ const errorResponses = {
     status,
     icon,
   },
+  sendExpireDateEmail: {
+    title,
+    content: `${firstContent} al enviar el mail${secondContent}`,
+    status,
+    icon,
+  },
 };
 
 module.exports = errorResponses;
