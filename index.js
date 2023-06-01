@@ -21,6 +21,8 @@ const annotationsRouter = require('./api/routes/annotations');
 const sendEmailRouter = require('./api/routes/sendEmail');
 const closedTillRouter = require('./api/routes/closedTill');
 const businessLogicRouter = require('./api/routes/businessLogic');
+const lessonScheduleRouter = require('./api/routes/lessonSchedule');
+const kidsRouter = require('./api/routes/kids');
 
 app.use(express.json());
 app.use(
@@ -58,6 +60,9 @@ app.use('/annotations', annotationsRouter);
 app.use('/sendEmail', sendEmailRouter);
 app.use('/closedTill', closedTillRouter);
 app.use('/businessLogic', businessLogicRouter);
+app.use('/lessonSchedule', lessonScheduleRouter);
+app.use('/kids', kidsRouter);
+
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
