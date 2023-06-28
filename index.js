@@ -23,6 +23,7 @@ const closedTillRouter = require('./api/routes/closedTill');
 const businessLogicRouter = require('./api/routes/businessLogic');
 const lessonScheduleRouter = require('./api/routes/lessonSchedule');
 const kidsRouter = require('./api/routes/kids');
+const lessonStudentsRouter = require('./api/routes/lessonStudents');
 
 app.use(express.json());
 app.use(
@@ -62,6 +63,7 @@ app.use('/closedTill', closedTillRouter);
 app.use('/businessLogic', businessLogicRouter);
 app.use('/lessonSchedule', lessonScheduleRouter);
 app.use('/kids', kidsRouter);
+app.use('/lessonStudents', lessonStudentsRouter);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {
