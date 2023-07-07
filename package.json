@@ -18,8 +18,9 @@
   },
   "homepage": "https://github.com/LaraSabatini/business-tracker-api#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
-    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.26.0",
     "express": "^4.17.3",
     "mysql2": "^2.3.3",
