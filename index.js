@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
 const port = 3001;
@@ -32,12 +33,15 @@ app.use(
   }),
 );
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
-  next();
-});
+app.use(
+  cors({
+    origin: ['http://localhost:3000', 'https://v-11.vercel.app', 'https://v-11-qa.vercel.app'],
+    methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Auth-Token', 'auth-token-expiration'],
+    exposedHeaders: ['Content-Type', 'Auth-Token', 'auth-token-expiration'],
+    credentials: true,
+  }),
+);
 
 app.get('/', (req, res) => {
   res.json({ message: 'ok' });
