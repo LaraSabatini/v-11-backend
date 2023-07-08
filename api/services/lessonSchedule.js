@@ -159,7 +159,7 @@ async function getPartnersByPurchases({ purchaseIds, type }) {
   );
 
   if (type === 'kids' && purchases.length) {
-    const clientIds = purchases.map((id) => `id LIKE '%${id.clientId}%'`).join(' OR ');
+    const clientIds = purchases.map((id) => `id = '${id.clientId}'`).join(' OR ');
 
     const rows = await db.query(
       `SELECT * FROM minor_partners WHERE ${clientIds} ORDER BY id ASC`,
@@ -169,7 +169,7 @@ async function getPartnersByPurchases({ purchaseIds, type }) {
   }
 
   if (type === 'partners' && purchases.length) {
-    const clientIds = purchases.map((id) => `id LIKE '%${id.clientId}%'`).join(' OR ');
+    const clientIds = purchases.map((id) => `id = '${id.clientId}'`).join(' OR ');
 
     const rows = await db.query(
       `SELECT * FROM partners WHERE ${clientIds} ORDER BY id ASC`,
