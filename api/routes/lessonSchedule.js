@@ -86,7 +86,16 @@ router.put('/type/edit', async (req, res, next) => {
     res.json(await lessonsSchedule.updateLessonType(req.body));
   } catch (err) {
     next(err);
-    res.status(500).json({ hola: 'puto' });
+    res.status(500);
+  }
+});
+
+router.put('/students', async (req, res, next) => {
+  try {
+    res.json(await lessonsSchedule.getPartnersByPurchases(req.body));
+  } catch (err) {
+    next(err);
+    res.status(500);
   }
 });
 
