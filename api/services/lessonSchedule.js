@@ -151,6 +151,36 @@ async function updateLessonType(data) {
   return { message };
 }
 
+async function getPartnersByPurchases({ purchaseIds, type }) {
+  const likeConditions = purchaseIds.map((id) => `id = '${id}'`).join(' OR ');
+
+  const purchases = await db.query(
+    `SELECT * FROM lesson_purchases WHERE ${likeConditions} ORDER BY clientId ASC`,
+  );
+
+  if (type === 'kids' && purchases.length) {
+    const clientIds = purchases.map((id) => `id LIKE '%${id.clientId}%'`).join(' OR ');
+
+    const rows = await db.query(
+      `SELECT * FROM minor_partners WHERE ${clientIds} ORDER BY id ASC`,
+    );
+
+    return { clients: rows, purchases };
+  }
+
+  if (type === 'partners' && purchases.length) {
+    const clientIds = purchases.map((id) => `id LIKE '%${id.clientId}%'`).join(' OR ');
+
+    const rows = await db.query(
+      `SELECT * FROM partners WHERE ${clientIds} ORDER BY id ASC`,
+    );
+
+    return { clients: rows, purchases };
+  }
+
+  return [];
+}
+
 module.exports = {
   getLessonScheduleByDay,
   getByPurchaseId,
@@ -161,4 +191,5 @@ module.exports = {
   createLessonType,
   getLessonTypes,
   updateLessonType,
+  getPartnersByPurchases,
 };
